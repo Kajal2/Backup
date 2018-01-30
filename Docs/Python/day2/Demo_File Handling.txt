@@ -1,0 +1,70 @@
+I/O Functions
+
+str = input("Enter your input: ");
+
+--------# Open a file
+fo = open("D:\OLD Laptop Backup\Test\sample.txt", "r")
+print ("Name of the file: ", fo.name)
+print ("Closed or not : ", fo.closed)
+print ("Opening mode : ", fo.mode)
+print ("Softspace flag : ", fo.softspace)  # to check throws error
+
+# to close
+fo.close()
+print ("Closed or not : ", fo.closed)
+
+--------# Reading 
+read(count)
+Here, passed parameter is the number of bytes to be read from the opened file. This method starts reading from the beginning of the file and if count is missing, then it tries to read as much as possible, maybe until the end of file.
+
+# Open a file
+fo = open("D:\OLD Laptop Backup\Test\sample.txt", "r+")
+str = fo.read(10);
+print ("Read String is : ", str)
+
+#trying to read may be the full file
+str = fo.read();	# shows the rest of the content
+# Close opened file
+fo.close()
+
+--------#File positions
+tell()  # tells you the current position within the file; in other words, the next read or write will occur at that many bytes from the beginning of the file.
+The seek(offset[, from]) method changes the current file position. The offset argument indicates the number of bytes to be moved. The from argument specifies the reference position from where the bytes are to be moved.
+If from is set to 0, it means use the beginning of the file as the reference position and 1 means use the current position as the reference position and if it is set to 2 then the end of the file would be taken as the reference position.
+Example:
+# Open a file
+fo = open("D:\OLD Laptop Backup\Test\sample.txt", "r+")
+str = fo.read(10);
+print ("Read String is : ", str)
+
+# Check current position
+position = fo.tell();
+print ("Current file position : ", position)
+
+# Reposition pointer at the beginning once again
+position = fo.seek(0, 0);
+str = fo.read(10);
+print ("Again read String is : ", str)
+# Close opened file
+fo.close()
+--------#Write
+Note: write() method does not add a newline character ('\n') 
+Syntax: fileObject.write(string);
+# Open a file
+fo = open("D:\OLD Laptop Backup\Test\sample.txt", "r+")
+fo.write( "\nPython is a great language.\nYeah its great!!\n");
+# Close opened file
+fo.close()
+#manually or programmatically open the file and check 
+
+--------Renaming and Deleting files, Mkdir ***to check the slash error
+Python os module provides methods that help you perform file-processing operations, such as renaming and deleting files. You need to import this os module before using
+Syntax: os.rename(current_file_name, new_file_name)
+import os
+# Rename a file from test1.txt to test2.txt
+os.rename('D:\\OLD Laptop Backup\\Test\\test1.txt', 'D:\\OLD Laptop Backup\\Test\\test2.txt')
+
+To remove: os.remove(filename)
+To create new dir mkdir()
+os.mkdir('test')
+---

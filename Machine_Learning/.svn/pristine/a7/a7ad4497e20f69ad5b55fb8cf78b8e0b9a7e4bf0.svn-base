@@ -1,0 +1,132 @@
+var app = angular.module('MachineLearning');
+
+app.controller('TrainModalCtrl', ['$scope', '$rootScope', '$state', '$http', function ($scope, $rootScope, $state, $http) {
+
+    $scope.loader=true;
+    $scope.goBack = function () {
+        $rootScope.tabColor.trainModel = "";
+        $rootScope.tabColor.selectAttribute = "attributeSelectionU";
+        $state.go('training.selectAttribute');
+    }
+
+    $scope.modelName='';
+    
+
+
+    var selectedClassifierName = "";
+    $scope.disabledModel = true;
+    $scope.trainModalDisable = true;
+    $scope.showAccuracy = true;
+    $scope.cancelButton = false;
+
+    $scope.applyCss = function (index, classifierName) {
+        $scope.id = index;
+        $scope.trainModalDisable = false;
+        selectedClassifierName = classifierName;
+    };
+
+    $scope.cancelTraining = function () {
+        $scope.showAccuracy = true;
+        $scope.id = -999;
+        $scope.cancelButton = false;
+
+    }
+
+    $http({
+        method: "GET",
+        url: "/dataset/getClassifiers"
+    }).then(function (response) {
+        //console.log(response.data);
+        $scope.loader=false;
+        if (response.data.status == true) {
+            $scope.classifiers = response.data.classifiers;
+            //console.log("HIIIIII" + $scope.attributeData);
+            //$scope.showGraph();
+            //console.log("This is the variable  " + $scope.attributeData);
+
+        } else {
+
+            toastr.options.timeOut = 1500;
+            toastr.error(response.data.msg);
+        }
+
+
+    }, function (err) {
+        toastr.options.timeOut = 1500;
+        toastr.error(err.data);
+        console.log(err);
+    });
+
+   $scope.trainModal = function () {
+       $scope.loader=true;
+        $scope.disabledModel = true;
+        $scope.trainModalDisable = true;
+        $scope.cancelButton = true;
+
+        $http({
+            method: "GET",
+            url: "/dataset/trainModel?classifier=" + selectedClassifierName
+
+        }).then(function (response) {
+            $scope.loader=false;
+            //console.log(response.data);
+            if (response.data.status == true) {
+                $scope.trainedModel = response.data.body;
+                console.log("%%%%%%%%");
+                console.log($scope.trainedModel);
+                
+                $scope.showAccuracy = false;
+                //console.log("HIIIIII" + $scope.attributeData);
+                //$scope.showGraph();
+                //console.log("This is the variable  " + $scope.attributeData);
+
+            } else {
+                $scope.showAccuracy = true;
+                toastr.options.timeOut = 1500;
+                toastr.error(response.data.msg);
+            }
+
+
+        }, function (err) {
+            $scope.showAccuracy = true;
+            toastr.options.timeOut = 1500;
+            toastr.error(err.data);
+            console.log(err);
+        });
+    }
+
+    $scope.saveModel = function () {
+
+        $scope.loader=true;
+        $http({
+            method: "POST",
+            url: "/dataset/save?modelName=" + $scope.modelName,
+            data: $scope.trainedModel,
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function (response) {
+            //console.log(response.data);
+            $scope.loader=false;
+            if (response.data.status == true) {
+                toastr.options.timeOut = 1500;
+                toastr.success("Model saved successfully");
+                
+
+            } else {
+
+                $scope.modelName='';
+                toastr.options.timeOut = 1500;
+                toastr.error(response.data.msg);
+            }
+
+
+        }, function (err) {
+            toastr.options.timeOut = 1500;
+            toastr.error(err.data);
+            console.log(err);
+        });
+
+
+
+    }
+
+}]);

@@ -1,0 +1,74 @@
+<div class="container" ng-controller="AttributeSelection">
+
+  <div ng-show="loader" class="loader"></div>
+  <div ng-class="{blur: loader}">
+  <div class="row">
+
+    <div class="col-lg-12">
+      <div style="max-height: 375px;overflow-y: auto;" class="well">
+        <div style="background-color:	#25293c ;">
+              <span style="font-size: 15px;color:white;"><b>Select attributes for training from the given set of attributes</b> </span>  
+          </div>
+
+        <div>
+          <div ng-repeat="data in chartData">
+
+            <div style="height: 315px;" class="col-lg-6 well">
+              <span style="color: #0b5494; font-size: 15px"> {{data.attributeName}} [<b> 
+                 <span ng-if="data.relevenceValue == 'Relevent'" style="color: green;"> {{data.relevenceValue}}  </span>
+                 <span ng-if="data.relevenceValue == 'Irrelevent'" style="color: red;">   {{data.relevenceValue}}  </span></b>] </span>
+
+
+              <span ng-switch="data.relevance">
+              <span ng-switch-when="true" style="color: green;margin-left: 150px;">Selected</span>
+              <span ng-switch-when="false" style="color: red;margin-left: 135px;">Not-Selected</span>
+              <span ng-switch-default>...</span>
+              </span>
+
+              <switch class="pull-right" id="enabled" name="enabled" ng-model="data.relevance" class="green"></switch>
+
+              <div style="min-width: 300px; height: 220px; max-width: 800px; margin-top: 20px" high-chart="data"></div>
+            </div>
+          </div>
+        </div>
+
+        <!--        <div ng-repeat="data in attributeData.data">
+          <div style="height: 300px;" class="col-lg-6 well">
+
+            <attribute-selector-dir>
+
+            
+              <span>
+                   <switch class="pull-right" id="enabled" name="enabled" ng-model="enabled" class="green"></switch>
+              </span>
+              <br>
+         
+
+              <div id="'object-' + '0'" style="min-width: 300px; height: 220px; max-width: 800px; margin-top: 20px"></div>
+            </attribute-selector-dir>
+
+          </div>
+
+        </div>-->
+
+
+      </div>
+      <!-- -->
+
+    </div>
+
+  </div>
+  
+  <div class="row">
+
+    <div class="col-lg-12">
+      <input type="button" ng-click="goBack()" value="BACK" class="btn btn-primary" />
+
+      <input type="button" ng-click="goNext()" value="NEXT" class="btn btn-primary pull-right " />
+    </div>
+
+  </div>
+
+  </div>
+
+</div>

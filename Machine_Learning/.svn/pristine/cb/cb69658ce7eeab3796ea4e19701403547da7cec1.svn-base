@@ -1,0 +1,131 @@
+<div class="container" ng-controller="FileUploadCtrl" >
+
+<div ng-show="loader" class="loader"></div>
+
+    <div class="row" ng-class="{blur: loader}">
+        <div class="col-lg-12">
+            
+                <!--   <div class="col-lg-2"></div> -->
+                <!--      <div class="col-lg-2"></div> -->
+                <div style="height: 300px" class="col-lg-8 well">
+
+                
+                    <!-- Drop Box -->
+
+                    <div style="width: 100%; height: 100%" id="dropbox" style="display: inline-block" class="dropbox" ng-class="dropClass">
+                        <div ng-hide="files.length">
+                            <br>
+                            <span style="font-size: 20px">{{dropText}}</span>
+                            <span style="font-size: 50px;" class="glyphicon glyphicon-save" ></span>
+                            <div class="upload">
+                                <input type="file" name="file-upload" id="file-upload" style="display: inline-block" class="inputfile" ng-model-instant id="fileToUpload"
+                                    onchange="angular.element(this).scope().setFiles(this)" />
+                            </div>
+
+                            <br><br>
+
+                            <label for="file-upload" class="custom-file-upload" style="font-size: 20px">
+                                <i class="fa fa-cloud-upload"></i> Or Choose file
+                            </label>
+
+                        </div>
+
+                        <div ng-show="files.length">
+                            <br>
+                            <div ng-repeat="file in files.slice(0)">
+                                <span style="font-size: 20px;">{{file.webkitRelativePath || file.name}}
+                            <div>
+                                <span style="font-size: 50px;" class="glyphicon glyphicon-file"></span><br>
+                                <input type="button" class="button" value="upload" ng-click="uploadFile()"/>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- End Frop Box -->
+
+                </div>
+            
+                <div  class="col-lg-4">
+                    <div class="row">
+                        <div style="height: 300px" class="well">
+                            
+                            
+                            <center><h4 style="color: #0b5494">Division Of Data</h4></center>
+                            <br>
+                            <table class="table table-bordered" style="height:200px;">
+                                <tr>
+                                    <td><b>
+                                        <span style="color: #0b5494">Training</span></b>
+                                    </td>
+                                    <td>
+                                        <span style="color: #0b5494"><input type="text" ng-disabled="!files.length" ng-model="sliderFilterData.training" ng-change="changeTraining(sliderFilterData.training)"> %</span>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td><b>
+                                        <span style="color: #0b5494">Testing</span>
+                                    </b> </td>
+                                    <td>
+                                        <span style="color: #0b5494"><input ng-disabled="!files.length" ng-model="sliderFilterData.testing" type="text" ng-change="changeTesting(sliderFilterData.testing)">%</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><b>
+                                        <span style="color: #0b5494">Hold</span></b>
+                                    </td>
+                                    <td>
+                                        <span style="color: #0b5494"><input ng-disabled="!files.length"  ng-model="sliderFilterData.hold" ng-change="changeHold(sliderFilterData.hold)" type="text"> %</span>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+<div>
+    <rzslider ng-disabled="!files.length" rz-slider-model="slider.minValue"
+          rz-slider-high="slider.maxValue"
+          rz-slider-options="slider.options"  ></rzslider>
+</div>
+
+<!--    </div>
+    <div ng-hide="files.length"> 
+    <rzslider rz-slider-model="RangeSlider.minValue" rz-slider-high="RangeSlider.maxValue" rz-slider-options="RangeSlider.options"></rzslider>
+    </div> 
+    <div ng-show="files.length"> 
+    <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
+    </div>-->
+
+
+   <br>
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            
+            <input type="button" ng-click="goNext()" value="NEXT" ng-disabled="flag" class="btn btn-primary pull-right " />
+        </div>
+
+    </div>
+
+
+
+
+</div>

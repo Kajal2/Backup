@@ -1,0 +1,31 @@
+const mongoose = require('mongoose');
+module.exports = {
+    getTrainedModels: (req, res) => {
+        //var ses = req.session;
+        
+        var trainedModels = require('../models/trainedModel.js');
+        var TrainedModel = mongoose.model('trainedmodels', trainedModels);
+        console.log("inside trained model");
+        TrainedModel.find({}, (err, docs) => {
+            if (err) {
+                //console.log(docs);
+                info = {
+                    status: false,
+                    msg: err
+                }
+
+            } else {
+              
+                info = {
+                    status: true,
+                    models:docs
+                }
+            //  var predict=JSON.stringify(docs[0].predictData);
+            //  predict=JSON.parse(predict);
+            //  console.log(predict);
+            };
+            res.send(info);
+            res.end();
+        });
+    }
+}

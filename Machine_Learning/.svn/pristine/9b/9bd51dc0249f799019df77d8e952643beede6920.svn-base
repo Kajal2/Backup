@@ -1,0 +1,10 @@
+.predictscrollbar
+{
+	margin-left: 0px;
+	float: left;
+	height: 280px;
+	width: 600px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+	margin-bottom: 20px;
+}

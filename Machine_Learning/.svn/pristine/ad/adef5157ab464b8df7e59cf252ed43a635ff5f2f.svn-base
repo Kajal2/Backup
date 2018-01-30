@@ -1,0 +1,190 @@
+var request = require('request');
+var mongoose = require('mongoose');
+var encode = require('hashcode').hashCode;
+module.exports = {
+
+    predict: (req, res) => {
+        //var ses = req.session;
+        console.log(req.body);
+        var info = {};
+        var users = require('../models/user.js');
+        var User = mongoose.model('users', users);
+        var authorization = req.headers['authorization'];
+        console.log(authorization);
+        var hash = encode().value(authorization);
+        var info = {};
+        User.findOne({ secret: hash, status: 'active' }, (err, doc) => {
+            if (err) {
+                //console.log(docs);
+                info = {
+                    status: false,
+                    msg: err
+                }
+                res.send(info);
+                res.end();
+
+            } else {
+
+                if (doc != null) {
+                    console.log(doc);
+                    var trainedModels = require('../models/trainedModel.js');
+                    var TrainedModel = mongoose.model('trainedmodels', trainedModels);
+                    console.log("inside trained model");
+                    TrainedModel.findOne({ name: req.query.modelName }, (err, docs) => {
+                        if (err) {
+                            //console.log(docs);
+                            info = {
+                                status: false,
+                                msg: err
+                            }
+                            console.log(err);
+                            res.send(info);
+                            res.end();
+
+                        } else {
+                            console.log(docs);
+                            if (docs != null) {
+
+                                console.log("$$$$$$$$$$$$$$$$");
+
+                                var columnData = docs.columnData;
+                                var rowData = [];
+                                for (var index = 0; index < columnData.length; index++) {
+                                    if(columnData[index]=="Result"){
+                                        continue;
+                                    }else{
+                                        rowData.push(req.body[columnData[index]]);
+                                    }       
+                                }
+                                console.log(rowData);
+                                var predictBody = {
+                                    "rowData": rowData,
+                                    "Classification": docs.classification,
+                                    "Precision": docs.precision
+                                }
+                                console.log(predictBody);
+                                request({
+                                    url: 'http://3.209.93.50:1612/dsw/predict?modelName=' + req.query.modelName,
+                                    method: 'POST',
+                                    json: predictBody
+                                }, function (error, response, body) {
+                                    if (error) {
+                                        info = {
+                                            status: false,
+                                            msg: "Something went wrong!!"
+                                        }
+                                        console.log(error);
+
+                                    } else {
+                                        if (response.statusCode === 200) {
+                                            info = {
+                                                status: true,
+                                                body: body
+                                            }
+                                        } else {
+                                            info = {
+                                                status: false,
+                                                msg: response.statusMessage
+                                            }
+                                        }
+                                        console.log(body);
+                                    }
+
+                                    res.send(info);
+                                    res.end();
+                                });
+                                // info={
+                                //     status:true,
+                                //     predictBody:predictBody
+                                // }
+                            }
+                            //  var predict=JSON.stringify(docs[0].predictData);
+                            //  predict=JSON.parse(predict);
+                            //  console.log(predict);
+                        };
+
+                    });
+
+
+                } else {
+                    res.sendStatus(401);
+                }
+
+            };
+
+        });
+        // var trainedModels = require('../models/trainedModel.js');
+        // var TrainedModel = mongoose.model('trainedmodels', trainedModels);
+        // console.log("inside trained model");
+        // TrainedModel.findOne({ name: req.query.modelName }, (err, doc) => {
+        //     if (err) {
+        //         //console.log(docs);
+        //         info = {
+        //             status: false,
+        //             msg: err
+        //         }
+        //         res.send(info);
+        //         res.end();
+
+        //     } else {
+        //         console.log(doc);
+        //         if (doc != null) {
+
+        //             console.log("$$$$$$$$$$$$$$$$");
+
+        //             var columnData = doc.columnData;
+        //             var rowData = [];
+        //             for (var index = 0; index < columnData.length; index++) {
+        //                 rowData.push(req.body[columnData[index]]);
+        //             }
+        //             console.log(rowData);
+        //             var predictBody = {
+        //                 "rowData": rowData,
+        //                 "Classification": doc.classification,
+        //                 "Precision": doc.precision
+        //             }
+        //             request({
+        //                 url: 'http://3.209.93.191:1612/dsw/predict?modelName=' + 'DarshitNathani21',
+        //                 method: 'POST',
+        //                 json: predictBody
+        //             }, function (error, response, body) {
+        //                 if (error) {
+        //                     info = {
+        //                         status: false,
+        //                         msg:"Something went wrong!!"
+        //                     }
+        //                     console.log(error);
+
+        //                 } else {
+        //                     if (response.statusCode === 200) {
+        //                         info = {
+        //                             status: true,
+        //                             body: body
+        //                         }
+        //                     } else {
+        //                         info = {
+        //                             status: false,
+        //                             msg: response.statusMessage
+        //                         }
+        //                     }
+        //                     console.log(body);
+        //                 }
+
+        //                 res.send(info);
+        //                 res.end();
+        //             });
+        //             // info={
+        //             //     status:true,
+        //             //     predictBody:predictBody
+        //             // }
+        //         }
+        //         //  var predict=JSON.stringify(docs[0].predictData);
+        //         //  predict=JSON.parse(predict);
+        //         //  console.log(predict);
+        //     };
+
+        // });
+
+
+    }
+}

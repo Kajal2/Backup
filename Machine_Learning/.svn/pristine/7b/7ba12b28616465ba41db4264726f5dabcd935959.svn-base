@@ -1,0 +1,50 @@
+<div class="container" ng-controller="DynamicFormController">
+
+    <div ng-show="loader" class="loader"></div>
+    <div class="col-xs-12 col-md-12" ng-class="{blur: loader}">
+        <div class="row">
+            <div style="height: 400px;" class="col-xs-7 col-md-7 well">
+               <center> <span style="font-size: 20px; color: #0b5494">{{model.name}} Model Prediction</span></center>
+               <br>
+                <div style="height: 380px;max-height: 300px;overflow-y: auto;" id="style-default">
+
+                    <center>
+                        <div ng-repeat="attr in result">
+                            <label class="control-label col-md-2  requiredField" style="color: #0b5494; font-family: Times New Roman;">{{attr.keys}} </label>
+                            <div class="controls col-md-4 ">
+                                <input class="form-control" type="text" style="color: #0b5494; font-family: Times New Roman;width :100px" ng-model="attr.values" />
+                            </div>
+                        </div>
+
+
+                    </center>
+
+                </div>
+
+     <!--           <center><button ng-click="submitForm()" class="btn btn-primary btn-md">Predict</button></center>-->
+
+            </div>
+
+            <div  ng-show="flag" style="height: 400px" class="col-xs-5 col-md-5 well ">
+                <div >
+                    <div id="container1" style="min-width: 1px; max-width: 400px; height:360px; margin: 0 auto"></div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-lg-7">
+          
+            <input type="button" ng-click="goBack()" value="BACK" class="btn btn-primary" />
+     
+       
+             <button ng-click="submitForm()" ng-disabled="model._id==undefined" class="btn btn-success btn-md pull-right">Predict</button>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,43 @@
+<!-- <style type="text/css">
+  form.tab-form-demo .tab-pane {
+    margin: 20px 20px;
+  }
+</style> -->
+
+<div ng-controller="TrainingTabController">
+  <!--    <br>
+     <uib-progressbar class="progress-striped active" max="100" value=tabs.tabValue ><span style="color:white; white-space:nowrap;">{{tabs.tabStep}}</span></uib-progressbar>
+<br>
+
+  <uib-tabset active="tabs.tabIndex">
+    <uib-tab style="width: 33.33%" ui-sref=".uploadCSV" index="1"   ng-click="showTabValue(33.33,1)"  heading="Upload Dataset"></uib-tab>
+    <uib-tab style="width: 33.33%" ui-sref=".selectAttribute" index="2"   ng-click="showTabValue(66.66,2)"   heading="Attribute Selection"></uib-tab>
+    <uib-tab style="width: 33.33%" ui-sref=".trainModal" index="3"  ng-click="showTabValue(100,3)" heading="Train Model"></uib-tab>
+  </uib-tabset>
+<br>-->
+
+  <!--
+  <ul class="nav nav-pills nav-wizard">
+    <li class="active"><a href="#" data-toggle="tab">Home</a></li>
+    <li><a href="#" data-toggle="tab">About</a></li>
+    <li><a href="#" data-toggle="tab">Contact</a></li>
+</ul>
+-->
+
+  <br>
+
+  <div class="container">
+  <ul class="nav nav-pills nav-wizard">
+     
+    <li class={{tabColor.uploadData}}><a ng-click="changeTab('uploadData')" ui-sref=".uploadCSV" index="1" style="width:360px">Step 1: Upload Dataset</a></li>
+    <li class={{tabColor.selectAttribute}}><a ng-click="changeTab('selectAtrribute')" ui-sref=".selectAttribute" index="2" style="width: 360px">Step 2: Attribute Selection</a></li>
+    <li class={{tabColor.trainModel}}><a ng-click="changeTab('trainModel')" ui-sref=".trainModal" index="3" style="width:360px ">Step 3: Train Model</a></li>
+  </ul>
+  </div>
+
+
+
+  <br>
+  <div ui-view></div>
+
+</div>

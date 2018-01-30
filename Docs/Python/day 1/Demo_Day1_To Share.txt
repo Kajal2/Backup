@@ -1,0 +1,764 @@
+#To Exit from command promp
+c:> exit()
+
+-----------Interpreter mode
+
+General
+----------
+help()
+#to exit help> prompt type quit or just press enter
+
+dir() # lists the variables created so far 
+del variable_name  # to delete indiv object
+
+#to delete all user created obj:
+
+for name in dir():
+    if not name.startswith('_'):
+        del globals()[name]
+# we need to ensure that we have not created variables with underscore at the start in the interpreter.
+--------
+Function To clear screen
+print ("\n" * 100)
+def cls(): print "\n" * 40 # call this function when needed
+
+ctrl+j    #takes u to 1 row donw
+
+--------
+Variable Names:
+ - can contain both letters and digits, but they have to begin with a letter or an underscore.
+ - Punctuation characters such as @, $, and % are not allowed.
+ - Are case sensitive.
+ - Cannot be any of the keywords
+------
+Prompt : (>>> and ...)
+Comments: #
+
+# This is first line
+
+#Python as calculator
+print (5+3)
+print(5 - 2)
+print (10/3)  # division always returns a floating point number
+print (3+ 2 * 7)
+>>>3.5 * 7.2
+#The integer numbers (e.g. 2, 3,5, 7,10) have type int, the ones with a fractional part (e.g. 3.5, 7.2) have type float.
+
+26 // 4  # floor division discards the fractional part ie to remove reminder
+26 % 4  # the % operator returns the remainder of the division
+4 * 5 + 2  # result * divisor + remainder
+# ** square
+6 ** 2  # 6 squared
+3**7
+
+#The equal sign (=) is used to assign a value to a variable. Afterwards, no result is displayed before the next interactive prompt:
+>>> width = 15
+>>> height = 7 * 6
+>>> height * width
+
+#if var is not defined
+>>> vm
+>>>5 * 4.75 - 3
+
+#In interactive mode, the last printed expression is assigned to the variable _. This means that when you are using Python as a desk calculator, it is somewhat easier to continue calculations, for example:
+>>> tax = 15.75 / 100
+>>> price = 100.50
+>>> price * tax
+>>> price + _
+116.32875
+>>> round(_, 2)
+116.33
+
+#This variable should be treated as read-only by the user. Don’t explicitly assign a value to it — you would create an independent local variable with the same name masking the built-in variable with its magic behavior.
+
+#In addition to int and float, Python supports other types of numbers, such as Decimal and Fraction. Python also has built-in support for complex numbers, and uses the j or J suffix to indicate the imaginary part (e.g. 3+5j).
+
+-----------Other functions
+format(value, format_spec='', /)
+    Return value.__format__(format_spec)
+    format_spec defaults to the empty string
+s2 = "I am {1} and I am {0} years old.".format(10, "Kiran")
+s2 = "I am {0} and I am {1} years old.".format("Kiran", 15)
+
+s2 = "Hello {0}, Your account balance is {1:8f}.".format("Kiran", 15)
+
+name = 'Karthik'
+'k' in name
+'K' in name
+
+------ NUMBERS
+a = complex(10,20)
+a = float(10.25)
+
+------Bitwise Operators
+~  Bitwise complement, unary operator  **
+&  Bitwise ANDing, binary operator  **
+|  Bitwise Oring, binary operator  **
+^ Bitwise XORing, binary operator  **
+<< Left shift, will add trailing zeros **
+>> Right shift, will add leading zeros **
+Ex:
+7<<2, a&b, a|b, 6^8, ~7
+
+       8421
+00001010
+7<<2 is 28
+7<<3 is 56
+7>>1 is 3
+7>>2 is 1
+==============Multiple assignments
+a, b, c = 5, 3.2, "Hello"
+x = y = z = "same"  # to assign value to multiple variables at once
+
+======Numbers Functions:
+a) Mathematical Functions
+import math  # step 1
+math.pi   # displays pi value 
+math.e  # natural log base
+ceil(x)
+
+#Return the ceiling of x as an Integral.
+#this is the smallest integer >= x.
+math.ceil(10.456);
+math.exp(5)
+fabs #absolute value of float
+math.floor()
+math.sqrt(4)
+a = cmp(10,20)
+a =max(10,20,30,40)
+a = min(10,20,30,40)
+a= round(0.5)
+round(-0.5)
+round(-1.2)
+round(-1.5)
+round(3.456)
+round(3.456,1) --> 3.5
+round(3.456,0) --> 3.0
+math.sqrt(64)
+
+b) Random Number Functions
+import random
+random.choice(seq)
+random.choice([1,2,3,6]) # not working in shell
+
+print 'choice('A String') : ', random.choice('A String')
+
+Import random
+shuffle(lst) #lst could be a list of tuple
+list = [20,16,10,5]
+print(list)
+random.shuffle(list)
+print(list)
+random.shuffle(list)
+print(list)
+random.shuffle(list)
+
+randrange([start,] stop[,step]): returns a randomly selected element from range(start, stop, step).
+start -- Start point of the range. This would be included in the range. .
+stop -- Stop point of the range. This would be excluded from the range..
+step -- Steps to be added in a number to decide a random number..
+random.randrange(100, 1000, 2)
+
+seed([x])
+sets the integer starting value used in generating random numbers. Call this function before calling any other random module function.
+x - This is the seed for the next random number. If omitted, then it takes system time to generate next random number.
+random.seed(10)
+random.random()
+It will generate same random number if we use seed(10 and generate random again
+
+uniform(x,y)
+Defn:
+returns a random float r, such that x is less than or equal to r and r is less than y.
+X - lower limit; Y - Upper limit
+random.uniform(5,10)
+random.uniform(5,15)
+------c) Trigonometric Functions
+Import math
+
+10 functions - eg asin, acos, atan, atan2(x,y), hypot(x,y)
+math.acos(0)
+math.asin(0)
+math.radians(90)
+------d) Mathematical constants
+math.pi
+math.e
+
+==========String
+Immutable means that changing the value of a number data type results in a newly allocated object
+
+# Strings
+var1 = 'Hello World!'
+var2 = "Python Programming"
+
+print  var1[0]
+print  var2[1:5] #includes starting, excludes ending
+
+Updating a string:
+var1 = 'Hello World!'
+var1[:6] + 'Python'
+
+#They can be enclosed in single quotes ('...') or double quotes ("...") with the same result [2]. \ can be used to escape quotes:
+>>> 'First name'  # single quotes
+'First name'
+>>> 'D\'souza'  # use \' to escape the single quote...
+"doesn't"
+>>> "D'souza"  # ...or use double quotes instead
+"D'souza"
+>>> '"Yes," I\'ll come.'
+'"Yes," he said.'
+>>> "\"Yes,\" he said."
+'"Yes," he said.'
+>>> '"Isn\'t," she said.'
+'"Isn\'t," she said.'
+
+In the interactive interpreter, the output string is enclosed in quotes and special characters are escaped with backslashes. While this might sometimes look different from the input (the enclosing quotes could change), the two strings are equivalent. The string is enclosed in double quotes if the string contains a single quote and no double quotes, otherwise it is enclosed in single quotes. The print() function produces a more readable output, by omitting the enclosing quotes and by printing escaped and special characters:
+
+print ("Hi, Welcome to Python session")
+print ('Hi, Welcome to Python session')
+
+>>> print('D:\some\name')  # here \n means newline!
+D:\some
+ame
+>>> print(r'D:\some\name')  # note the r before the quote
+D:\some\name
+
+#String literals can span multiple lines. One way is using triple-quotes: """...""" or '''...'''. End of lines are automatically included in the string, but it’s possible to prevent this by adding a \ at the end of the line. The following example:
+
+print("""\
+Usage: thingy [OPTIONS]
+     -h                        Display this usage message
+     -H hostname               Hostname to connect to
+""")
+
+#concatenation - Strings can be concatenated (glued together) with the + operator, and repeated with *:
+ 'Karthikeyan ' + 'Ramanathan'
+ 'Karthikeyan ' + "Ramanathan"
+>>> # 3 times 'un', followed by 'ium'
+>>> 3 * 'un' + 'ium'
+ 'G' + 10 * 'o' + 'gle'
+'R.' 'Karthikeyan' # two or more string literals (i.e. the ones enclosed between quotes) next to each other are automatically concatenated
+
+>>> prefix = 'R.'
+>>> prefix 'Karthik'  # can't concatenate a variable and a string literal
+('un' * 3) 'ium' # syntax error
+3 * 'un' 'ium'  # this works
+>>> prefix = 'R.'
+>>> prefix + 'Karthik'
+
+# to beak long strings
+>>> sometext = ('Put several strings within parentheses '
+	    'to have them joined together')
+
+>>> somtext
+
+#Strings can be indexed (subscripted), with the first character having index 0. There is no separate character type; a character is simply a string of size one:
+#slicing
+>>> word = 'Python'
+>>> word[0]  # character in position 0
+'P'
+>>> word[5]  # character in position 5
+'n'
+word[-1]
+word[-3]
+word[-6]
+word[0:2] #2 is from starting position
+word[3:5] #2 is from starting position
+# Note how the start is always included, and the end always excluded. This makes sure that s[:i] + s[i:] is always equal to s:
+word[:2] + word[2:]
+word[:4] + word[4:]
+#out of range - handled gracefully in slicing
+word[4:42]
+#assigning to an indexed position in the string results in an error:
+word[0]='j'
+word[2:] = 'py'
+#Above will throw error
+
+#If you need a different string, you should create a new one:
+'J' + word[1:]
+word[:2] + 'py'
+
+#built in len() returns the length of the string
+t = 'My name is Karthikeyan'
+len(t)
+len(t[0:5])
+
+in -->membership
+a = 'Hai'
+print('H' in a) # returns true if H is there in a
+
+not in -->membership
+
+Raw String - Suppresses actual meaning of Escape characters. Raw strings do not treat the backslash as a special character at all. Every character you put into a raw string stays the way you wrote it -
+r/R
+print ('C:\\nowhere') #normal
+now with raw string
+print (r'C:\\nowhere')
+
+---------String formatting operators:
+print ("My name is %s and weight is %d kg!" % ('Karthik', 55))
+print ("My weight is %d and my name is %s kg!" % (55,'Karthik'))
+print ("To\stest")
+
+----------Other supported symbols and functionality
+*, -, + 
+-----------Triple quotes
+Python's triple quotes comes to the rescue by allowing strings to span multiple lines, including verbatim NEWLINEs, TABs, and any other special characters.
+tq_para_str = """this is a long string that is made up of
+several lines and non-printable characters such as
+TAB ( \t ) and they will show up that way when displayed.
+NEWLINEs within the string, whether explicitly given like
+this within the brackets [ \n ], or just a NEWLINE within
+the variable assignment will also show up.
+"""
+print tq_para_str
+--------------Uniode string
+Defn: Normal strings in Python are stored internally as 8-bit ASCII, while Unicode strings are stored as 16-bit Unicode. This allows for a more varied set of characters, including special characters from most languages in the world.
+you can see the prefix u - just like raw uses r
+
+print (u'Hello, world!')
+
+---------------Built-in String methods  ==> 40 + methods available
+a) capitalize() #Capitalizes first letter of string
+str = "this is an example....wow!!!"
+print (str)
+str.capitalize() OR print (str.capitalize())
+
+b)center(width, fillchar) -- Syntax: str.center(width[, fillchar])
+
+The method center() returns centered in a string of length width. Padding is done using the specified fillchar. Default filler is a space.
+width -- This is the total width of the string.	
+fillchar -- This is the filler character.
+print (str.center(40,'a'))
+
+c) count()
+The method count() returns the number of occurrences of substring sub in the range [start, end]. Optional arguments start and end are interpreted as in slice notation.
+str.count(sub, start= 0,end=len(string))
+sub -- This is the substring to be searched.
+start -- Search starts from this index. First character starts from 0 index. By default search starts from 0 index.
+end -- Search ends from this index. First character starts from 0 index. By default search ends at the last index.
+
+print (str.count('i',4,40))
+print (str.count('i',0,40))
+print (str.count('e',0,len(str)))
+
+
+The method decode() decodes the string using the codec registered for encoding. It defaults to the default string encoding.
+encoding -- This is the encodings to be used
+errors -- This may be given to set a different error handling scheme. The default for errors is 'strict', meaning that encoding errors raise a UnicodeError. Other possible values are 'ignore', 'replace', 'xmlcharrefreplace', 'backslashreplace' and any other name registered via codecs.register_error()..
+Str = "this is string example....wow!!!";
+Str = Str.encode('base64','strict');
+print (Str.decode('base64','strict'))
+
+e) endswith(suffix, beg=0,end=len(string))   --> syntax: str.endswith(suffix[, start[, end]])
+It returns True if the string ends with the specified suffix, otherwise return False optionally restricting the matching with the given indices start and end
+suffix -- This could be a string or could also be a tuple of suffixes to look for.
+start -- The slice begins from here.
+end -- The slice ends here.
+
+str = "this is string example....wow!!!";
+suffix="wow!!!"
+suffix.endswith(suffix)
+suffix="is"
+str.endswith(suffix,2,4)
+str.endswith(suffix,2,5)
+
+f) find()
+str.find('is',2,len(str))
+str.find('is',3,len(str))
+str.find('is',6,len(str))  # show -1 if the string is not found
+
+g) index - same as find but raises exception if str not found
+str.index('is',6,len(str))
+str.index('is',0,len(str))
+
+h) isalnum()
+print ('test'.isalnum())
+print ('test'.isalpha())
+print ('test1'.isalpha())
+print ('test1'.isalnum())
+print ('1234'.isdigit())
+print ('T'.isupper())
+print ('Test'.isupper())
+lstrip/rstrip
+print ('        test'.lstrip())
+print ('        test               ' .rstrip())
+print ('        test               ' .strip())
+
+print ('mY nAME iS kARTHIK'.swapcase())
+ljust(width[,fillchar)
+print max(str)
+print (min('test'))
+print ('training delivery report'.title())  # ie proper case
+
+split()   -->syntax: str.split(str="", num=string.count(str)).
+str --> any delimiter and by default, space
+num --> this is no of lines minus one
+str = "Line1-abcdef \nLine2-abc \nLine4-abcd";
+print (str.split( ))
+print (str.split(' ', 1 ))
+print (str.split(' ', 2 ))
+-----------------
+#others
+Text Sequence Type — str
+Strings are examples of sequence types, and support the common operations supported by such types.
+String Methods
+Strings support a large number of methods for basic transformations and searching.
+Formatted string literals
+String literals that have embedded expressions.
+Format String Syntax
+Information about string formatting with str.format().
+printf-style String Formatting
+The old formatting operations invoked when strings are the left operand of the % operator are described in more detail here.
+
+---------------LISTS
+https://www.tutorialspoint.com/python/python_lists.htm
+squares = [1, 7, 9, 16, 25]
+squares[0]
+squares[4]
+squares[-1]
+squares[:]
+squares[-3:]
+#concatenation in list
+squares + [36, 49, 64, 81, 100]
+squares = squares + [36, 49, 64, 81, 100]
+squares.append(32) # appends this no at the end
+squares.pop() # displays the last no appended
+squares
+squares.reverse
+squares
+
+#replacing the value
+cubes = [1, 8, 27, 65, 125]
+cubes[3] = 64
+
+nested = ["hello", 2.0, 5, [10, 20]]
+print(nested[3][1]) # prints 20
+print (nested[3][0]) # prints 10
+
+list1 = ['physics', 'chemistry', 1997, 2000];
+list2 = [1, 2, 3, 4, 5 ];
+list3 = ["a", "b", "c", "d"]
+
+To access:
+list1[0]
+list2[1:5]
+
+Updating a list:
+list[2] = 2001;
+print (list2)
+
+Deleting list element
+del list1[2]
+print (list1)
+
+Basic operations
+len([4,6,7,10])
+concatenation ? [2,3,4]+[5,6,7]
+repetition [‘Hi’]*4
+
+Indexing , Slicing , Matrixes
+sample_list = ['spam', 'Spam', 'SPAM!']
+sample_list[2]
+sample_list[-2]
+sample_list[1:]
+
+Built-in List functions & Methods
+cmp()
+list1, list2 = [123, 'xyz'], [456, 'abc']
+print (cmp(list1, list2))
+list3 = list2 + [786];
+
+len(list1)
+
+list1=[3,5,6]
+max(list1)
+min(list1)
+
+list2 = ['abc', 'A']
+max(list2)
+min(list2)
+
+list()
+atuple=[123,'xyz','Hari','ab']
+alist=list(atuple)
+print (alist)
+
+Tuples:
+tup1 = ('physics', 'chemistry', 1997, 2000);
+tup2 = (1, 2, 3, 4, 5 );
+tup3 = "a", "b", "c", "d";
+
+Accessing tuples:
+tup1[0]
+tup2[1:5]
+
+Updating the tuples
+Tuples are immutable which means you cannot update or change the values of tuple elements. You are able to take portions of existing tuples to create new tuples -
+tup1 = (12, 34.56);
+tup2 = ('abc', 'xyz');
+
+tup1[0] = 100; # is not valid for tuples
+
+But we can create a new tuple:
+# So let's create a new tuple as follows
+tup3 = tup1 + tup2;
+print tup3
+print (tup3)
+
+To delete tuple elements:
+tup = ('physics', 'chemistry', 1997, 2000);
+del tup  # you get error as not defined
+
+Basic operations in Tuple:
+len (tup1), concatenation(1, 2, 3) + (4, 5, 6); repetition; 
+3 in (1, 2, 3) # shows True
+
+Indexing, Slicing, Matrixes
+tuple_example = ('test', 'Test', 'TEST!')
+tuple_example[2]
+tuple_example[-1]
+tuple_example[1:]
+
+No enclosing delimieters:
+Any set of multiple objects, comma-separated, written without identifying symbols, i.e., brackets for lists, parentheses for tuples, etc., default to tuples
+
+print ('abc', -4.24e93, 18+6.6j, 'xyz')
+x, y = 1, 2;
+print "Value of x , y : ", x,y
+
+cmp - not working
+len, max,min,tuple(seq)
+
+The method tuple() converts a list of items into tuples
+aList = (123, 'xyz', 'zara', 'abc');
+aTuple = tuple(aList)
+print (aTuple)
+---------------DICTIONARY
+Dictionaries are hash tables or associative arrays.
+dict = {'Name': 'Kiran', 'Age': 7, 'Class': 'First'}
+print (dict['Name'])
+print (dict['Age'])
+print (dict['Desig'])  # if we access the data item with a which is not a part of the dictionary, throws error
+
+updating dictionary:
+dict['Age'] = 8; # update existing entry
+dict['School'] = "Narayana School"; # Add new entry
+dict
+Deleting:
+del dict['Name']; # remove entry with key 'Name'
+dict.clear();     # remove all entries in dict
+del dict ;        # delete entire dictionary
+
+Properties:
+Dictionary values have no restrictions. They can be any arbitrary Python object, either standard objects or user-defined objects. However, same is not true for the keys.
+2 important properties:
+1) no duplicate keys allowed
+dict = {'Name': 'Zara', 'Age': 7, 'Name': 'Manni'}
+dict['Name']
+2) Keys must be immutable
+
+Basic operations: cmp(dict1,dict2); len(dict); str(dict);type(variable)
+dict1 = {'Name': 'Zara', 'Age': 7};
+dict2 = {'Name': 'Mahnaz', 'Age': 27};
+dict3 = {'Name': 'Abid', 'Age': 27};
+dict4 = {'Name': 'Zara', 'Age': 7};
+
+dict = {'Name': 'Zara', 'Age': 7};
+print ("Length : %d" % len (dict))
+
+str() produces a printable string representation of a dictionary:
+dict = {'Name': 'Keith', 'Age': 74};
+print ("Equivalent String : %s" % str(dict))
+
+type() returns the type of the passed variable. If passed variable is dictionary then it would return a dictionary type.
+dict = {'Name': 'Keith', 'Age': 74};
+print ("Variable Type : %s" %  type (dict))
+print (type(atuple))
+print (type(list))
+type(tup1)
+
+Dictionary Methods:
+dict.clear()
+
+dit.copy()
+dict1 = {'Name': 'Saravanan', 'Age': 17};
+dict2 = dict1.copy()
+print ("New Dictinary : %s" %  str(dict2))
+
+dict.fromkeys() --> fromkeys() creates a new dictionary with keys from seq and values set to value. Syntax: dict.fromkeys(seq[, value])
+seq = ('name', 'age', 'gender')
+dict = dict.fromkeys(seq)
+print ("New Dictionary : %s" %  str(dict))
+
+dict = dict.fromkeys(seq, 10)
+print ('New Dictionary : %s' %  str(dict))
+
+**how to set different values to different keys to check
+
+dict.get(key, default=None) --> returns a value for the given key. If key is not available then returns default value None.
+dict = {'Name': 'Steve', 'Age': 37}
+print ("Value : %s" %  dict.get('Age'))
+print ("Value : %s" %  dict.get("Age", "Never")) # Never is the default value to be returned in case that key doen't exist
+print ("Value : %s" %  dict.get("Never"))
+
+dict = {'Name': 'Amit', 'Age': 35}
+print ("Value : %s" %  dict.haskey('Age'))
+print "Value : %s" %  dict.has_key('Sex')
+
+dict.items() --> returns a list of dict's (key, value) tuple pairs
+print ("Value : %s" % dict.items())
+
+dict.keys() #returns a list of all the available keys in the dictionary
+print ("Value : %s" %  dict.keys())
+
+dict.setdefault(key, default=None) --> is similar to get(), but will set dict[key]=default if key is not already in dict. This method returns the key value available in the dictionary and if given key is not available then it will return provided default value.
+dict = {'Name': 'Madhu', 'Age': 45}
+print ("Value : %s" %  dict.setdefault('Age', None))
+print ("Value : %s" %  dict.setdefault('Gender', None))
+
+dict.update(dict2)-->adds dictionary dict2's key-values pairs in to dict. This function does not return anything.
+dict = {'Name': 'Zara', 'Age': 7}
+dict2 = {'Gender': 'female' }
+dict.update(dict2)
+print ("Value : %s" %  dict)
+ dict3 = {'Desig':'SE'}
+dict3.update(dict2)   # shows {'Desig': 'SE', 'Gender': 'female'}
+
+dict.values()  --> returns a list of all the values available in a given dictionary.
+print ("Value : %s" %  dict.values())
+
+pop() -->
+dict.pop('Name')
+---------------Sets
+Set is a container that stores only unique elements
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana'] 
+fruit = set(basket) # create a set without duplicates
+fruit = set(['orange', 'pear', 'apple', 'banana']) 
+'orange' in fruit # true
+fruit.add('pine apple')
+
+# Demonstrate set operations on unique letters from two words ... 
+a = set('abracadabra') 
+b = set('alacazam') 
+a # unique letters in a 
+a - b # letters in a but not in b 
+a | b # letters in either a or b 
+a & b # letters in both a and b  - intersection
+a ^ b # letters in a or b but not both 
+
+------Data type conversions
+ord('A')
+hex(100)
+oct(8)
+oct(10)
+-------Multiple assignments
+a = b = c = 12
+a, b, c = 10, 20, "John"
+
+-------Date & Time
+import time;  # This is required to include time module.
+
+ticks = time.time() # returns the time as a floating point number expressed in seconds since the epoch, in UTC.
+print ("Number of ticks since 12:00am, January 1, 1970:", ticks)
+
+print ("time.time(): %f " %  time.time())
+print (time.localtime( time.time() ))
+print (time.asctime( time.localtime(time.time()) ))
+
+localtime is similar to gmtime() but it converts number of seconds to local time. If secs is not provided or None, the current time as returned by time() is used. The dst flag is set to 1 when DST applies to the given time.
+
+localtime = time.localtime(time.time())
+print ("Local current time :", localtime)
+# time.struct_time(tm_year=2017, tm_mon=10, tm_mday=5, tm_hour=17, tm_min=48, tm_sec=2, tm_wday=3, tm_yday=278, tm_isdst=0)
+
+time.struct_time(tm_year())
+
+Getting formatted time:
+localtime = time.asctime( time.localtime(time.time()) )
+print ("Local current time :", localtime)
+
+print ("time.altzone %d " % time.altzone)  #returns the offset of the local DST timezone, in seconds west of UTC, if one is defined
+
+time.asctime()  # 'Sat Oct  7 18:33:44 2017' converts a tuple or struct_time representing a time as returned by gmtime() or localtime() to a 24-character string of the following form: 'Tue Feb 17 23:21:05 2009'
+
+time.ctime  #converts a time expressed in seconds since the epoch to a string representing local time. If secs is not provided or None, the current time as returned by time() is used. This function is equivalent to asctime(localtime(secs)). Locale information is not used by ctime()
+time.ctime # 'Sat Oct  7 18:33:44 2017'
+
+time.clock()  #Returns the current CPU time as a floating-point number of seconds. To measure computational costs of different approaches, the value of time.clock is more useful than that of time.time().
+
+time.strftime(format[, t]) #Once we have a time.struct_time object, we can format it into a string so that it can be further processed by another program. We can do so by calling time.strftime(format[, t]) with the current time object as the argument t. If the t argument is not provided or None, then the time_struct object returned by time.localtime is used.
+
+#The two functions that convert between time_struct and string objects are easy to remember. time.strftime could be remembered as "string formatted from time" and time.strptime could be remembered as "time represented from string"
+
+----------Formatted
+strftime
+
+current_time = time.localtime() #  converts a tuple or struct_time representing a time as returned by gmtime() or localtime() to a string as specified by the format argument.
+
+time.strftime('%Y-%m-%d %A', current_time) # yyyy-mm-dd day
+time.strftime('%Y Week %U Day %w', current_time)
+time.strftime('%Y Week %U Day %w', time.localtime())  # samething with time.localtime
+time.strftime('%a, %d %b %Y %H:%M:%S GMT', current_time)
+t = (2009, 2, 17, 17, 3, 38, 1, 48, 0)
+t = time.mktime(t)
+print (time.strftime("%b %d %Y %H:%M:%S", time.gmtime(t)))
+print (time.strftime("%b %d %Y %H:%M:%S", time.localtime())) # local time
+print (time.strftime("%b %d %Y %H:%M:%S", time.gmtime(time.mktime(time.localtime())))) # GMT, %h also same as b
+print (time.strftime("%B %D %Y %H:%M:%S %%", time.gmtime(time.mktime(time.localtime())))) # full name dd/mm/y
+
+print (time.strftime("%h ", time.gmtime(time.mktime(time.localtime())))) 
+
+Python provides a function time.strptime that converts a string object into a time_struct object.
+time.strptime(time_str, '%a, %d %b %Y %H:%M:%S GMT')
+
+struct_time = time.strptime("30 Nov 00", "%d %b %y")
+print ("returned tuple: %s ", struct_time)
+
+Of course, converting back and forth between strings and time_struct objects is easy.
+time.strftime('%Y-%m-%dT%H:%M:%S', current_time)
+
+ISO 8601 Data elements and interchange formats – Information interchange – Representation of dates and times is an international standard covering the exchange of date and time-related data. It was issued by the International Organization for Standardization (ISO) and was first published in 1988.
+
+iso8601 = '2013-02-20T23:52:14'
+time.strptime(iso8601, '%Y-%m-%dT%H:%M:%S')
+
+time.daylight
+time.get_clock_info()  #argument
+time.gmtime([ sec ]) # converts a time expressed in seconds since the epoch to a struct_time in UTC in which the dst flag is always zero. If secs is not provided or None, the current time as returned by time() is used
+
+time.locatime()
+time.mktime() # is the inverse function of localtime(). Its argument is the struct_time or full 9-tuple and it returns a floating point number, for compatibility with time().
+t = (2009, 2, 17, 17, 3, 38, 1, 48, 0) # Python's TimeTuple ie 4digit year, month, day, hour, minute, second, day of week, Day of year,Daylight savings
+secs = time.mktime( t )
+print ("time.mktime(t) : %f" %  secs)
+print ("asctime(localtime(secs)): %s" % time.asctime(time.localtime(secs)))
+
+time.sleep() #suspends execution for the given number of seconds. The argument may be a floating point number to indicate a more precise sleep time.
+The actual suspension time may be less than that requested because any caught signal will terminate the sleep() following execution of that signal's catching routine.
+t-This is the number of seconds execution to be suspended
+print ("Start : %s" % time.ctime())
+time.sleep( 5 )
+print ("End : %s" % time.ctime())
+
+============
+import calendar
+------------------
+calendar.calendar(2017,w=2,l=1,c=6)
+
+calendar.isleap(2016) # true
+calendar.isleap(2017)
+calendar.leapdays(2016,2017)
+calendar.leapdays(2016,2020)
+calendar.leapdays(2016,2021)
+calendar.month(2017,10,w=2,l=1)
+calendar.monthcalendar(2017,10) # shows week-wise and Mon thru Sun
+calendar.prcal(2017,w=2,l=1,c=6) # shows complete calendar for the year
+calendar.prcal(2016,w=2,l=1,c=3) # print calendar cmd shows complete calendar for the year
+calendar.prmonth(2017,10,w=2,l=1) # prints month
+calendar.setfirstweekday(weekday)
+calendar.setfirstweekday(6) # sets Sun as first day of week
+calendar.monthcalendar(2017,10) # shows week-wise and sun thru Sat
+calendar.setfirstweekday(0)
+calendar.monthcalendar(2017,10) # shows week-wise and Mon thru Sun
+calendar.weekday(2017,10,7) # returns week day code
+========================

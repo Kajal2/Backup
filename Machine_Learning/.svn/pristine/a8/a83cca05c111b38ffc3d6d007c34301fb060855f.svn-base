@@ -1,0 +1,5 @@
+mongoimport --db MLDB --collection classifiers --file C:\Users\spbola\Documents\newrepo\Machine-Learning\classifierData.json
+
+mongoimport --db MLDB --collection trainedmodels --file C:\Users\spbola\Documents\newrepo\Machine-Learning\modelData.json
+
+mongoimport --db MLDB --collection users --file C:\Users\spbola\Documents\newrepo\Machine-Learning\users.json

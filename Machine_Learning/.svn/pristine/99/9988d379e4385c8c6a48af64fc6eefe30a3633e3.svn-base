@@ -1,0 +1,46 @@
+var request = require('request');
+var urls = require('./urls');
+module.exports = {
+
+    getAttributes: (req, res) => {
+        // var ses = req.session;
+        console.log('http://3.209.93.50:1312/dataset/getAttributes?Training=' + req.query.Training + '&Testing=' + req.query.Testing + '&Hold=' + req.query.Hold + '&file=' + req.query.file + '&userId=' + req.query.userId);
+        var info = {};
+
+        request({
+            url: urls.url+'/dataset/getAttributes?Training=' + req.query.Training + '&Testing=' + req.query.Testing + '&Hold=' + req.query.Hold +  '&file=' + req.query.file + '&userId='  + req.query.userId,
+            method: 'GET'
+        }, function (error, response, body) {
+            if (error) {
+                info = {
+                    status: false
+                }
+                //console.log(error);
+
+            } else {
+                //console.log(body);
+                if (response.statusCode === 200) {
+
+                    var jsonString = {};
+                    jsonString = JSON.stringify(eval('(' + body + ')'));
+                    jsonString = JSON.parse(jsonString);
+                    //console.log(jsonString.data);
+                    info = {
+                        status: true,
+                        body: jsonString
+                    }
+                } else {
+                    info = {
+                        status: false,
+                        msg: body
+                    }
+                }
+                //console.log(body);
+            }
+            // ses.name="spandana";
+            res.send(info);
+            res.end();
+        });
+
+    }
+}

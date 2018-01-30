@@ -1,0 +1,9 @@
+
+module.exports ={
+    url: 'http://3.209.93.50:1312'/*/dataset/getAttributes?Training=' + req.query.Training + '&Testing=' + req.query.Testing + '&Hold=' + req.query.Hold + '&file=' + req.query.file + '&userId=' + req.query.userId,
+        predict:'http://3.209.93.50:1312/dsw/predict?modelName=' + req.query.modelName,
+            save:'http://3.209.93.50:1312/save?modelName=' + req.query.modelName + '&userId=' + req.query.userId,
+                sendAttributes:'http://3.209.93.50:1312/dataset/sendAttributes?userId=' + req.query.userId,
+                    trainModel:'http://3.209.93.50:1312/dataset/trainModel?classifier=' + req.query.classifier + '&userId=' + req.query.userId*/
+
+}

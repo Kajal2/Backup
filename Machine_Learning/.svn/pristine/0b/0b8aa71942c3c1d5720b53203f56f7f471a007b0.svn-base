@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Machine-Learning</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="../../../bower_components/angular/angular.min.js"></script>
+    <script src="../../../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../../../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="../../../bower_components/angular-number-picker/dist/angular-number-picker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../bower_components/angularjs-slider/dist/rzslider.css" />
+    <script src="../../../src/ui-bootstrap.js"></script>
+    <script src="../../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../../bower_components/ngstorage/ngStorage.js"></script>
+    <link rel="stylesheet" href="../../../bower_components/angular-ui-switch/angular-ui-switch.min.css" />
+    <script src="../../../bower_components/angular-ui-switch/angular-ui-switch.min.js"></script>
+    <script src="../../../bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+    <script src="../../../src/app.js"></script>
+    <script src="../../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../../../src/route.js"></script>
+    <link rel="stylesheet" href="../../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="../../../bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <script src="../../../src/Training/trainingTabs.js"></script>
+    <script src="../../../src/Predict/predictTabs.js"></script>
+    <script src="../../../src/Predict/selectModal/js/select.js"></script>
+    <link rel="stylesheet" href="../../../src/Predict/selectModal/style/select.css">
+    <script src="../../../src/Predict/predictModal/js/predict.js"></script>
+    <link rel="stylesheet" href="../../../src/Predict/predictModal/style/predict.css">
+    <script src="../../../src/Training/TrainModal/js/trainModal.js"></script>
+    <link rel="stylesheet" href="../../../src/Training/TrainModal/style/trainModal.css">
+    <script src="../../../src/Training/AttributeSelection/js/attributeSelection.js"></script>
+    <script src="../../../bower_components/highcharts/highcharts.js"></script>
+    <script src="../../../bower_components/highcharts/modules/exporting.js"></script>
+    <script src="../../../src/Home/js/home.js"></script>
+    <script src="../../../src/Training/UploadFile/js/upload.js"></script>
+    <link rel="stylesheet" href="../../../src/Training/UploadFile/style/style.css">
+    <link rel="stylesheet" href="../../../src/Home/style/styles.css">
+
+</head>
+
+<body ng-app="MachineLearning">
+
+    <div ng-controller="HomeController">
+
+        <div>
+
+            <div class="row" style="background: #25293c;">
+
+
+
+<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0;background-color:#25293c">
+<div class="col-lg-2">
+    <div class="navbar-header" style="height:72px">
+<img style='height: 70px; width: 200px; padding-bottom:8px;margin-left: 20px; margin-top: 5px' src='../../../src/Home/images/capg.png' />
+</div>
+</div>
+
+<div class="col-lg-5">
+    <br>
+    <span style="font-size: 30px; color: white; font-family: sans-serif;margin-left: 10px;">Machine Learning For Data Science</span>
+</div>
+<div class="col-lg-3">
+</div>
+
+</nav>
+
+</div>
+
+<div class="row">
+
+    <div style="height: 400px" id="myCarousel" class="carousel slide" data-ride="carousel">
+<!-- Indicators -->
+<ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+</ol>
+
+<!-- Wrapper for slides -->
+<div style="height: 400px" class="carousel-inner">
+<div class="item active">
+    <img src="../../../src/Home/images/machine-learning2.jpg" alt="Los Angeles" style="width: max-content; height:400px">
+    
+    <div class="bottom-left">
+    <center>
+        <h3>Train Model</h3>
+  
+        <span style="text-justify:distribute;font-size:15px">Train the model based on selected attributes with your own CSV file</span>
+
+    </center>
+<!--<p class="hometext">Train the model based on selected attributes with your own CSV file</p>-->
+    </div>
+
+    <div class="bottom-right">
+    <center>
+    <h3>Predict Result</h3>
+        <span style="text-justify:distribute;font-size:15px">Choose a model and predict the possible results for your data</span>
+    </center>
+<!--<p class="hometext">Choose a model and predict the possible results for your data</p>-->
+    </div>
+
+</div>
+
+<div style="height: 400px" class="item">
+<img src="../../../src/Home/images/machine.jpg" alt="Chicago" style="width: max-content; height:400px">
+<div class="bottom-left">
+    <center>
+        <h3>Train Model</h3>
+  
+        <span style="text-justify:distribute;font-size:15px">Train the model based on selected attributes with your own CSV file</span>
+
+    </center>
+<!--<p class="hometext">Train the model based on selected attributes with your own CSV file</p>-->
+    </div>
+
+    <div class="bottom-right" >
+    <center>
+    <h3>Predict Result</h3>
+        <span style="text-justify:distribute;font-size:15px">Choose a model and predict the possible results for your data</span>
+    </center>
+<!--<p class="hometext">Choose a model and predict the possible results for your data</p>-->
+    </div>
+</div>
+
+<div style=" height: 400px" class="item">
+<img src="../../../src/Home/images/Blockchain-Tech.jpg" alt="New york" style="width:100% ; height: 400px">
+
+<div class="bottom-left">
+    <center>
+        <h3>Train Model</h3>
+  
+        <span style="text-justify:distribute;font-size:15px">Train the model based on selected attributes with your own CSV file</span>
+
+    </center>
+<!--<p class="hometext">Train the model based on selected attributes with your own CSV file</p>-->
+    </div>
+
+    <div class="bottom-right">
+    <center>
+    <h3>Predict Result</h3>
+        <span style="text-justify:distribute;font-size:15px">Choose a model and predict the possible results for your data</span>
+    </center>
+<!--<p class="hometext">Choose a model and predict the possible results for your data</p>-->
+    </div>
+</div>
+</div>
+
+<!-- Left and right controls -->
+<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+</a>
+<a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+</a>
+</div>
+
+</div>
+
+
+<div class="row">
+
+    <div ng-click="training()" style="cursor:pointer; box-shadow: 10px 10px 5px #888888;" class="homeButton col-lg-6">
+
+<div class="col-md-5" style="margin-left: 20px;">
+<img src="../../../src/Home/images/brain.png" style="width: 50%; height: 20%;">
+</div>
+
+<div class="col-md-6">
+    <div class="card" style="width: 100%;">
+
+<div class="card-block">
+    <h4>
+        <b style="font-size: 25px">Train Model</b>
+</h4>
+<p class="card-text" style="font-size: 15px">Train the model based on selected attributes with your own CSV file</p>
+
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+<div ng-click="predict()" style="cursor:pointer;box-shadow: 10px 10px 5px #888888;" class="col-lg-6">
+
+
+<div class="col-md-5">
+    <img src="../../../src/Home/images/predict.png" style="width: 50%; height: 20%;margin-left: 20px;">
+</div>
+
+<div class="col-md-6">
+    <div class="card" style="width: 100%;">
+
+<div class="card-block">
+    <h4>
+        <b style="font-size: 25px">Predict result</b>
+</h4>
+<p class="card-text" style="font-size: 15px">Choose a model and predict the possible results for your data</p>
+
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
+
+<br><br><br>
+<div class="row">
+
+
+    <footer>
+        <nav class="navbar navbar-default navbar-fixed-bottom " style="background-color:#25293c ">
+<div style="text-align:right;padding:10px;color:white">
+<p>&copy; 2017 Capgemini</p>
+</div>
+</nav>
+
+
+</footer>
+</div>
+
+
+</div>
+
+
+</div>
+
+</body>
+
+</html>

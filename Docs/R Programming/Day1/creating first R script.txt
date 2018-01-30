@@ -1,0 +1,20 @@
+1.To Open R editor from R menu selectFile-> New Script 
+type the following code and paste it in the R console, 
+myfunction <- function() {
+	x<- rnorm(100)
+	mean(x)
+}
+
+type ls()
+then type myfunction()
+
+2. To save the code select menu File->Save As..->mycode.R
+	In the R console type dir()
+3.To Load the code in R console type : source("mycode.R")  then type ls()
+	type myfunction()  to execute it
+4. To Edit the same script file ass the following code to it and save.
+second <- function(x){
+	x+rnorm(length(x))
+}
+source("mycode.R")  then type ls()
+type second(10) or second(4:10) to execute it

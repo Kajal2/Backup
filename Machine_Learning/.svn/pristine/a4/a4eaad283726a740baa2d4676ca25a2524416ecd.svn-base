@@ -1,0 +1,15 @@
+const mongoose = require('mongoose');
+module.exports = {
+    select: (req, res) => {
+      //  ses = req.session;
+        //ses.modelId = req.query.model_id;
+        console.log("hit the service");
+        //console.log(ses.modelId);
+        info = {
+            status: true
+        }
+
+        res.send(info);
+        res.end();
+    }
+}

@@ -1,0 +1,67 @@
+var mongoose = require('mongoose');
+var encode = require('hashcode').hashCode;
+var fs = require('fs');
+var path=require('path');
+module.exports = {
+    remove: (req, res) => {
+        // console.log(req.body);
+        // var baseUser = new Buffer(req.body.username + ':' + req.body.password).toString('base64');
+        // console.log(req.body);
+        // var hash = encode().value('Basic ' + baseUser);
+        // var info = {};
+        // var users = require('../models/user.js');
+        // var User = mongoose.model('users', users);
+        // User.findOne({ secret: hash, status: 'active' }, (err, doc) => {
+        //     if (err) {
+        //         //console.log(docs);
+        //         info = {
+        //             status: false,
+        //             msg: err
+        //         }
+        //         res.send(info);
+        //         res.end();
+
+        //     } else {
+
+        if (req.body.pin === '345678') {
+            var trainedModels = require('../models/trainedModel.js');
+            var TrainedModel = mongoose.model('trainedmodels', trainedModels);
+            console.log("inside trained model");
+
+            TrainedModel.remove({ _id: req.query.id }, (err, doc) => {
+                if (err) {
+                    //console.log(docs);
+                    info = {
+                        status: false,
+                        msg: err
+                    }
+
+                } else {
+                    try {
+                        var joinPath=path.join(__dirname,"../python/Models/",req.body.name+".sav");
+                        console.log(joinPath);
+                        fs.unlinkSync(joinPath);
+
+                    } catch (e) {
+                        console.log(e);
+                        //error deleting the file
+                    }
+                    finally {
+                        info = {
+                            status: true
+                        }
+                    }
+                };
+                res.send(info);
+                res.end();
+            });
+
+        } else {
+            res.sendStatus(401);
+        }
+
+        // };
+
+        //});
+    }
+}

@@ -1,0 +1,22 @@
+var express = require("express");
+var router = express.Router();
+
+var getTrainedModelsService = require('../services/getTrainedModelsService');
+
+var selectService = require('../services/selectService');
+
+var getModelService = require('../services/getModelService');
+
+var predictService = require('../services/predictService');
+
+
+
+router.get("/getTrainedModels", getTrainedModelsService.getTrainedModels);
+
+router.get("/select", selectService.select);
+
+router.get("/getModel", getModelService.getModel);
+
+router.post("/predict", predictService.predict);
+
+module.exports = router;

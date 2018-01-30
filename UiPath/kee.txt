@@ -1,0 +1,18 @@
+sc.ge.com/*SAMStage
+
+502755282
+L15gm3@in
+
+
+210015662
+Neuxpower NXpowerlite Desktop Edition 1 User License
+ge_48635
+
+"C:\Users\ljayaram\Downloads\License_Key_Repository.xlsx"
+
+environment.CurrentDirectory.Substring(0,9)+ environment.UserName + "\Downloads\License_Key_Repository.xlsx"
+
+requestCol.ToString.Contains(requestorBatchID) OR OrderNumCol.ToString.Contains(OrderNumberEffective) OR pridbox.ToString.Contains(PRID)
+
+
+environment.CurrentDirectory.Substring(0,9)+ environment.UserName + "\Downloads\Installation Instructions.xlsx"

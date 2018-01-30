@@ -1,0 +1,39 @@
+var request = require('request');
+module.exports = {
+
+    sendAttributes : (req, res) => {
+        //var ses = req.session;
+        console.log(req.body);
+        var info={};
+
+        request({
+            url: 'http://3.209.93.50:1612/dataset/sendAttributes',
+            method: 'POST',
+            json: req.body
+        }, function (error, response, body) {
+            if(error){
+                info={
+                    status:false
+                }
+                console.log(error);
+               
+            }else{
+                 if (response.statusCode === 200) {
+                    info = {
+                        status: true  
+                    }
+                } else {
+                    info = {
+                        status: false,
+                        msg: response.statusMessage
+                    }
+                }
+                 console.log(body);
+            }
+            
+             res.send(info);
+            res.end();
+        });
+      
+    }
+}

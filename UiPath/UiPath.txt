@@ -1,0 +1,53 @@
+The complete list of keyboard shortcuts for UiPath Studio:
+
+Ctrl + D - Ignores the activity that is currently selected by placing it into a Comment Out container.
+
+Ctrl + E - Removes the activity from the Comment Out container it was placed in.
+
+Ctrl + T - Places the activity inside the Try section of a Try Catch activity.
+
+Ctrl + Shift + N - Creates a new Blank Project.
+
+Ctrl + N - Creates a new Sequence Diagram in the current project.
+
+Ctrl + O - Enables you to open a previously created workflow. Only .xaml files are supported.
+
+F1 - Enables you to access a help topic associated with the currently selected element.
+
+Ctrl + L - Opens the folder where the Log files are stored.
+
+Shift + F9 - Removes all the breakpoints in the currently opened workflow.
+
+Ctrl + S - Saves the currently opened workflow.
+
+Ctrl + Shift + S - Saves all the workflows that are currently open.
+
+F5 - Runs the workflow that is currently open.
+
+F7 - Runs the currently opened workflow in debug mode.
+
+F8 - Checks the currently opened workflow for validation errors.
+
+F9 - Marks the selected activity with a breakpoint.
+
+F10 - When debugging, steps over the execution of a block of activities in the currently selected workflow.
+
+F11 - When debugging, enables you to step into a block of activities and executes the first one.
+
+Pause - Pauses the execution of the current workflow, in both normal and debug mode.
+
+F12 - Stops the execution of the current workflow, in both normal and debug mode.
+
+Ctrl + C - Copies the selected activity or activities to the clipboard.
+
+Alt + Ctrl + W - Opens the Web Recording toolbar.
+
+Alt + Ctrl + B - Opens the Basic Recording toolbar.
+
+Alt + Ctrl + C - Opens the Citrix Recording toolbar.
+
+Alt + Ctrl + D - Opens the Desktop Recording toolbar.
+
+Alt + Ctrl + F - Sets the focus to the search box in the Activities Panel.
+
+Ctrl + P - Opens the Manage Packages window.

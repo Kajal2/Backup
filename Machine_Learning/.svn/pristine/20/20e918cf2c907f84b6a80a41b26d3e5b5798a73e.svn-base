@@ -1,0 +1,54 @@
+var mongoose = require('mongoose');
+var request = require('request');
+var encode = require('hashcode').hashCode;
+
+// const fs=require('fs');
+
+// let Grid=require('gridfs-stream');
+// let conn=mongoose.connection;
+// Grid.mongo=mongoose.mongo;
+// let gfs;
+
+module.exports = {
+
+    registerUser: (req, res) => {
+      //  var ses = req.session;
+       console.log(req.body);
+
+        var baseUser=new Buffer(req.body.username+':'+req.body.password).toString('base64');
+        console.log(baseUser);
+        var hash = encode().value('Basic '+baseUser); 
+        console.log(hash);
+                var users = require('../models/user.js');
+                var User = mongoose.model('users', users);
+
+                var user = new User({
+                   name: req.body.name,
+                    status: req.body.status,
+                    secret: hash,
+                });
+
+                user.save(function (err) {
+                    if (err) {
+                        console.log(err);
+                        info = {
+                            status: false,
+                            msg: "failed to register user " + err
+                        }
+                    }
+                    else {
+
+                        info = {
+                            status: true,
+                            msg: "Successfully registered user"
+                        }
+                    }
+                    res.send(info);
+                    res.end();
+                });
+
+                
+            }
+
+}
+    

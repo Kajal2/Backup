@@ -1,0 +1,49 @@
+const mongoose = require('mongoose');
+module.exports = {
+    getModel: (req, res) => {
+       // ses = req.session;
+        //ses.modelId="59c20998710a22b82e3639d4"
+        console.log(req.query.model_id);
+        var trainedModels = require('../models/trainedModel.js');
+        var TrainedModel = mongoose.model('trainedmodels', trainedModels);
+        console.log("inside trained model");
+        TrainedModel.findOne({_id:req.query.model_id}, (err, doc) => {
+            if (err) {
+                //console.log(docs);
+                info = {
+                    status: false,
+                    msg: err
+                }
+
+            } else {
+                console.log(doc);
+                // doc.position = ["first", "second", "third"];
+                // doc.predict = ["3", "5", "6"];
+                // var predictBody={};
+                // for (var index = 0; index < doc.position.length; index++) {
+                //         predictBody[doc.position[index]]=doc.predict[index];
+                //         console.log(doc.predict.length)
+                //     }
+                //var str="{first:172787, second:-0.73279, third:-0.05508, result:0}";
+                //console.log(typeof(doc.predictData));
+                // var jsonString={};
+                // jsonString=JSON.stringify(eval('(' + doc.predictData + ')'));;
+                // jsonString=JSON.parse(jsonString);
+                // console.log(typeof(jsonString));
+                //doc.predictData=jsonString;
+                
+                // console.log(typeof(doc.predict));
+                //ses.model=doc;
+                info = {
+                    status: true,
+                    model:doc
+                }
+            //  var predict=JSON.stringify(docs[0].predictData);
+            //  predict=JSON.parse(predict);
+            //  console.log(predict);
+            };
+            res.send(info);
+            res.end();
+        });
+    }
+}

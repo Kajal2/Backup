@@ -1,0 +1,43 @@
+var app = angular.module('MachineLearning');
+app.controller('TrainingTabController', function ($scope, $window, $rootScope, $state) {
+
+ $rootScope.activeMenu.class = "training";
+  function onload() {
+    $state.go('training.uploadCSV');
+
+  } onload();
+
+
+
+
+  $rootScope.tabColor = { "uploadData": "", "selectAttribute": "", "trainModel": "" };
+
+  $scope.changeTab = function (value) {
+
+    if (value === 'uploadData') {
+
+      $rootScope.tabColor.uploadData = "uploadDataSetU";
+      $rootScope.tabColor.selectAttribute = "";
+      $rootScope.tabColor.trainModel = "";
+
+    }
+
+    else if (value === 'selectAtrribute') {
+
+      $rootScope.tabColor.uploadData = "uploadDataSet";
+      $rootScope.tabColor.selectAttribute = "attributeSelectionU";
+      $rootScope.tabColor.trainModel = "";
+
+    }
+
+    else if (value === 'trainModel') {
+
+      $rootScope.tabColor.uploadData = "uploadDataSet";
+      $rootScope.tabColor.selectAttribute = "attributeSelection";
+      $rootScope.tabColor.trainModel = "trainModelU";
+
+    }
+
+  }
+
+});

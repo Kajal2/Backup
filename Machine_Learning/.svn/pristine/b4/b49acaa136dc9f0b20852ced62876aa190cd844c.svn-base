@@ -1,0 +1,177 @@
+var app = angular.module('MachineLearning');
+
+app.controller('AttributeSelection', ['$scope', '$http', '$state', '$rootScope', '$localStorage', function ($scope, $http, $state, $rootScope,$localStorage) {
+
+
+    $scope.loader=true;
+    $scope.goBack = function () {
+        $rootScope.tabColor.trainModel = "";
+        $rootScope.tabColor.selectAttribute = "";
+        $state.go('training.uploadCSV');
+    }
+
+
+    $scope.goNext = function () {
+
+        $scope.sendChartDetails();
+    }
+
+    $http({
+        method: "GET",
+        url: "/dataset/getAttributes?Training=" + $localStorage.sliderFilterData.training + "&Testing=" + $localStorage.sliderFilterData.testing + "&Hold=" + $localStorage.sliderFilterData.hold + "&file=" + $localStorage.file+ "&userId="+$localStorage.userId,
+    }).then(function (response) {
+        $scope.loader=false;
+        //console.log(response.data);
+        if (response.data.status == true) {
+            $scope.attributeData = response.data.body;
+            //console.log($scope.attributeData);
+            $scope.showGraph();
+            //console.log($scope.attributeData);
+
+        } else {
+
+            toastr.options.timeOut = 8000;
+            toastr.error(response.data.msg);
+        }
+
+
+    }, function (err) {
+         $scope.loader=false;
+        toastr.options.timeOut = 8000;
+        toastr.error(err.data);
+        console.log(err);
+    });
+
+    $scope.showGraph = function () {
+
+        $scope.chartData = [];
+        $scope.FinalData = [];
+        /*   var chartJson = [];*/
+        // var jsonString = {};
+        // jsonString = JSON.stringify(eval('(' + $scope.attributeData + ')'));
+        // jsonString = JSON.parse(jsonString);
+        // console.log("DATA" + jsonString.data);
+        angular.forEach($scope.attributeData.data, function (value, key) {
+            console.log("Loop");
+            $scope.highChartOptions = {
+                attributeName: value.attributeName,
+                relevance: value.Relevance,
+                relevenceValue: value.RelevanceValue,
+                chart: {
+                    type: 'scatter',
+                    zoomType: 'xy'
+                },
+                title: {
+
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    title: {
+                        enabled: true,
+                        text: ''
+                    },
+                    startOnTick: true,
+                    endOnTick: true,
+                    showLastLabel: true
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                plotOptions: {
+                    scatter: {
+                        marker: {
+                            radius: 5,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    lineColor: 'rgb(100,100,100)'
+                                }
+                            }
+                        },
+                        states: {
+                            hover: {
+                                marker: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<b>{series.name}</b><br>',
+                            pointFormat: '{point.x} , {point.y} '
+                        }
+                    }
+                },
+                series: value.attributeData
+            }
+            $scope.chartData.push($scope.highChartOptions);
+        });
+
+        // console.log($scope.chartData);
+        console.log("data")
+        console.log($scope.chartData);
+
+    }
+
+    $scope.sendChartDetails = function () {
+
+        $scope.loader=true;
+        var significance = {}
+        for (var index = 0; index < $scope.chartData.length; index++) {
+            significance[$scope.chartData[index].attributeName] = $scope.chartData[index].relevance
+        }
+        // console.log($scope.chartData);
+        console.log("********")
+        //console.log(significance);
+        $http({
+            method: "POST",
+            url: "/dataset/sendAttributes?userId="+$localStorage.userId,
+            data: significance,
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function mySuccess(response) {
+            $scope.loader=false;
+            console.log(response.data);
+            if (response.data.status == true) {
+
+                $rootScope.tabColor.trainModel = "trainModelU";
+                $rootScope.tabColor.selectAttribute = "attributeSelection";
+                $state.go('training.trainModal');
+
+
+            } else {
+                //flag = true;
+
+                toastr.options.timeOut = 8000;
+                toastr.error(response.data.msg);
+            }
+
+        }, function myError(err) {
+             $scope.loader=false;
+            toastr.options.timeOut = 8000;
+            toastr.error(err.data);
+            console.log(err);
+
+        });
+    }
+
+}]);
+
+
+
+
+
+app.directive("highChart", function ($parse) {
+    return {
+        link: function (scope, element, attrs, ngModel) {
+            var props = $parse(attrs.highChart)(scope);
+            props.chart.renderTo = element[0];
+            console.log(props)
+            new Highcharts.Chart(props);
+        }
+    }
+});
+

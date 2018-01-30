@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Machine-Learning</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<script src="../bower_components/angular/angular.min.js"></script>-->
+    <script src="../../../bower_components/angular/angular.min.js"></script>
+    <script src="../../../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../../../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../../../src/ui-bootstrap.js"></script>
+    <script src="../../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../../bower_components/ngstorage/ngStorage.js"></script>
+    <script src="../../../src/app.js"></script>
+    <script src="../../../src/Template/js/index.js"></script>
+    <script src="../../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../../../src/route.js"></script>
+    <link rel="stylesheet" href="../../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="../../../bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../src/Template/style/index.css">
+    <script src="../../../src/Training/trainingTabs.js"></script>
+    <link rel="stylesheet" href="../../../src/Training/trainingTabs.css">
+    <script src="../../../src/Predict/predictTabs.js"></script>
+     <link rel="stylesheet" href="../../../src/Predict/predictTabs.css">
+    <script src="../../../src/Predict/selectModal/js/select.js"></script>
+    <link rel="stylesheet" href="../../../src/Predict/selectModal/style/select.css">
+    <script src="../../../src/Predict/predictModal/js/predict.js"></script>
+    <link rel="stylesheet" href="../../../src/Predict/predictModal/style/predict.css">
+    <script src="../../../src/Training/TrainModal/js/trainModal.js"></script>
+    <link rel="stylesheet" href="../../../src/Training/TrainModal/style/trainModal.css">
+    <script src="../../../src/Training/AttributeSelection/js/attributeSelection.js"></script>
+    <link rel="stylesheet" href="../../../bower_components/angular-ui-switch/angular-ui-switch.min.css" />
+    <script src="../../../bower_components/angular-ui-switch/angular-ui-switch.min.js"></script>
+    <script src="../../../bower_components/highcharts/highcharts.js"></script>
+    <script src="../../../bower_components/highcharts/modules/exporting.js"></script>
+    <script type="text/javascript" src="../../../bower_components/angular-number-picker/dist/angular-number-picker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../bower_components/angularjs-slider/dist/rzslider.css" />
+    <script src="../../../bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+    <script src="../../../src/Training/UploadFile/js/upload.js"></script>
+    <link rel="stylesheet" href="../../../src/Training/UploadFile/style/style.css">
+
+    <link href="../../../bower_components/toastr/toastr.css" rel="stylesheet" />
+    <script src="../../../bower_components/toastr/toastr.js"></script> 
+
+
+</head>
+
+<body ng-app="MachineLearning">
+
+
+    <div ng-controller="TemplateController" ng-init="loadState()">
+
+
+        <!-- Main div -->
+        <div class="row" style="background: #25293c;">
+
+           
+
+                <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0;background-color:#25293c">
+                   <div class="col-lg-2">
+                        <div class="navbar-header" style="height:69px">
+                            <a href="../../../src/Home/views/home.html"><img style='height: 65px; width: 200px; padding-bottom:10px;margin-left: 20px; margin-top: 5px' src='../../../src/Template/images/capg.png'
+                        /></a>
+
+
+                            <!--</p>-->
+
+
+
+                        </div>
+                   </div>
+                   
+                    <div class="col-lg-5">
+                        <br>
+                        <span style="font-size: 30px; color: white; font-family: Times New Roman;margin-left: 10px;"> Data Science Workbench</span>
+                    </div>
+                    <div class="col-lg-3">
+                    </div>
+
+                </nav>
+           
+        </div>
+        <!-- End row-->
+
+        <div class="row">
+            <div class="container">
+
+                <div class="row">
+                    <div id="wrapper">
+                        <!-- Sidebar -->
+                        <div id="sidebar-wrapper">
+                            <ul class="sidebar-nav" style="margin-left:0;">
+
+                                <li class="sidebar-brand">
+
+                                    <a href="#menu-toggle" id="menu-toggle" style="margin-top:10px;text-align: right;"> <i class="fa fa-bars " style="font-size:20px !Important;" aria-hidden="true"></i> </a>
+
+                                </li>
+                                <li>
+
+                                    <a ui-sref="training"><i ng-class="{selectedTab : activeMenu.class === 'training'}" class="fa fa-sort-alpha-asc " aria-hidden="true"> </i> <span ng-class="{selectedTab : activeMenu.class === 'training'}" style="margin-left:10px;">Training</span>  </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="predict"> <i ng-class="{selectedTab : activeMenu.class === 'predict'}" class="fa fa-bar-chart " aria-hidden="true"> </i> <span ng-class="{selectedTab : activeMenu.class === 'predict'}" style="margin-left:10px;"> Predict</span> </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <!-- /#sidebar-wrapper -->
+
+                        <!-- Page Content -->
+                        <div id="page-content-wrapper">
+                            <div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div ui-view></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+
+
+            <footer>
+                <nav class="navbar navbar-default navbar-fixed-bottom " style="background-color:#25293c ">
+                    <div style="text-align:right;padding:10px;color:white">
+                        <p>&copy; 2017 Capgemini</p>
+                    </div>
+                </nav>
+
+
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+</body>
+
+</html>

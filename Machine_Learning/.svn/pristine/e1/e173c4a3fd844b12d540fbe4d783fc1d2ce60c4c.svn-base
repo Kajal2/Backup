@@ -1,0 +1,93 @@
+<div class="container" ng-controller="machineController">
+
+  <div ng-show="loader" class="loader"></div>
+  <div ng-class="{blur: loader}">
+  <div class="row">
+   
+      <div class="col-lg-12">
+
+        <div ng-show="modelDetails.length==0" style="height: 250px;overflow-y: auto; " class="well">
+              <h1 class="text-center">No Models Available</h1>
+              <h1 class="text-center">Go to Training tab to Create Models </h1>
+        </div>
+        <div ng-show="modelDetails.length!=0" style="height: 250px;overflow-y: auto; " class="well">
+          <div ng-repeat="items in modelDetails">
+
+            <div class="col-sm-4">
+              <div style="cursor:pointer" class="offer offer-radius offer-primary">
+
+
+                <div ng-class="{'selected': id === {{$index}}}" ng-click="applyCss($index,items._id)" class="offer-content"
+                  style="height:80px;">
+
+                  <center> <span style="color:white;" class="lead"> {{items.name| limitTo: 12 }}{{items.name.length > 12 ? '...' : ''}}
+                            </span></center>
+
+
+                  <center><span style="color:white;text-justify:distribute">Classifier : {{items.classifier}}</span></center>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+     
+
+
+
+    </div>
+  </div>
+
+
+
+
+  <div class="row">
+
+    <div class="tab-panel in active" id="myModal" ng-show="IsHiddenPanel">
+
+      <div class="panel-body" style="height: 150px">
+
+        <div ng-repeat="models in resArray">
+
+          <table class="table" style="color: #0b5494; font-family: Times New Roman;background-color:#F5F5F5">
+
+            <tbody ng-hide="IsHidden">
+              <tr>
+                <td ><b>Model Name : {{models.name}}</b>
+                </td>
+                <td><b>Classifier : {{models.classifier}}</b> </td>
+                <td><b>Model Creation Date :{{models.date}}</b></td>
+              </tr>
+
+              <tr>
+                <td><b>Total Number Of Rows: {{models.totalNumberOfRows}}</b></td>
+                <td><b>Number Of Rows Used For Training : {{models.numberOfRowsForTraining}}</b></td>
+                <td ><b>Number Of Rows Used For Testing : {{models.numberOfRowsForTesting}}</b></td>
+              </tr>
+              <tr>
+                <td ><b>Number Of attributes: {{models.totalNumberOfAttributes}}</b></td>
+                <td ><b>Number Of attributes Selected : {{models.numberOfAttributesUsed}}</b></td>
+                <td>
+                  <b style="color:green;">Accuracy :{{models.accuracy | number:2}} </b>
+                </td>
+              </tr>
+
+              <tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+<div class="row">
+  <div class="col-lg-12 ">
+
+    <input ng-disabled="nextDisable" type="button" ng-click="goNext()" value="NEXT" class="btn btn-primary pull-right " />
+  </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,72 @@
+var app = angular.module('MachineLearning');
+app.controller('machineController', function ($scope, $state, $http, $rootScope, $localStorage) {
+	
+	//$scope.started = false;
+	$rootScope.predctTabColor.selectModal = "selectModalU";
+
+	$scope.loader=true;
+	
+	
+	$http({
+
+		url: '/dsw/getTrainedModels',
+		dataType: 'json',
+		method: 'GET',
+		headers: { 'Content-Type': 'application/json' }
+	}).then(function (response) {
+		  $scope.loader=false;
+		if (response.data.status == true) {
+			console.log(response.data.models);
+			$scope.modelDetails = response.data.models;
+			
+		} else {
+			toastr.options.timeOut = 1500;
+			toastr.error(response.data.msg);
+		}
+
+		//    console.log(response.data.models[0]);
+		//    console.log($scope.modelDetails);
+
+	}, function (err) {
+		toastr.options.timeOut = 1500;
+		toastr.error(err);
+		console.log(err); // *****************************************************************************
+	});
+
+	$scope.nextDisable = true;
+	$scope.IsHidden = true;
+	$scope.IsHiddenPanel = false;
+	/*$scope.ShowHide = function () {
+		$scope.IsHidden = false;
+	}*/
+	$scope.PanelShowHide = function () {
+
+	}
+
+	$scope.applyCss = function (index,  modelID) {
+		$scope.id = index;
+		$scope.trainModalDisable = false;
+		$scope.IsHiddenPanel = true;
+		$scope.nextDisable = false;
+		$scope.IsHidden = false;
+		$scope.resArray = [];
+		var modelStruct = $scope.modelDetails;
+		for (var model in modelStruct) {
+			if (modelID === modelStruct[model]._id) {
+				$scope.resArray.push(modelStruct[model]);
+				break;
+			}
+		}
+		console.log("here");
+		console.log($scope.resArray);
+	};
+
+	$scope.goNext = function () {
+
+		$localStorage.modelId = $scope.resArray[0]._id;
+		$rootScope.predctTabColor.predictModal = "predictModalU"
+		$rootScope.predctTabColor.selectModal = "selectModal";
+		$state.go('predict.predictModal');
+	}
+
+});

@@ -1,0 +1,41 @@
+var request = require('request');
+module.exports = {
+
+    split: (req, res) => {
+        //var ses = req.session;
+        console.log(req.query.file);
+        var info = {};
+
+        request({
+            url: 'http://3.209.93.50:1612/dataset/split?Training=' + req.query.Training + '&Testing=' + req.query.Testing + '&Hold=' + req.query.Hold + '&file=' + req.query.file, //'IrisData2',//'creditcardSmall',
+            method: 'GET'
+        }, function (error, response, body) {
+            if (error) {
+                info = {
+                    status: false,
+                    msg:"Something went wrong!!"
+                }
+                console.log(error);
+
+            } else {
+                console.log(response.statusCode);
+                if (response.statusCode === 200) {
+                    info = {
+                        status: true 
+                    }
+                } else {
+                    info = {
+                        status: false,
+                        msg: response.statusMessage
+                    }
+                }
+
+                console.log(body);
+            }
+
+            res.send(info);
+            res.end();
+        });
+
+    }
+}

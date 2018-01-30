@@ -1,0 +1,256 @@
+FUNCTIONS 
+=========
+Example:
+1) Simple function
+def printme( str ):
+   "This prints a passed string into this function"
+   print (str)
+   return;
+
+# calling the printme function
+printme("I'm first call to user defined function!")
+printme("Again second call to the same function")
+
+2)Adding default values
+def hello(greeting='Hello', name='world'):
+     print ('%s, %s!' % (greeting, name))
+
+Function call: hello()
+3) Using named parameters. In this case the order of the arguments does not matter.
+def hello_1(greeting, name): 
+     print ('%s, %s!' % (greeting, name))
+# The order here doesn't matter at all: 
+hello_1(name='world', greeting='Hello')
+
+4) The variable length function parameters allow us to create a function which can accept any number of parameters.
+def print_params(*params): 
+     print (params) 
+print_params('Testing') 
+print_params(1, 2, 3)
+
+5) Variable named parameters
+def print_params_3(**params): 
+     print (params) 
+
+print_params_3(x=1, y=2, z=3)
+
+6)A combination of all of above cases
+
+def print_params_4(x, y, z=3, *pospar, **keypar):  
+     print (x, y, z) 
+     print (pospar)
+     print (keypar)
+
+print_params_4(1, 2, 3, 5, 6, 7, foo=1, bar=2) 
+print_params_4(1, 2)
+
+7) Pass by reference vs value
+All parameters (arguments) in the Python language are passed by reference. It means if you change what a parameter refers to within a function, the change also reflects back in the calling function. 
+Example:
+def changeme( mylist ):
+   "This changes a passed list into this function"
+   mylist.append([1,2,3,4]);
+   print ("Values inside the function: ", mylist)
+   return
+
+# Now you can call changeme function
+mylist = [10,20,30];
+changeme( mylist );
+print ("Values outside the function: ", mylist)
+
+#Note, we are maintaining reference of the passed object and appending values in the same object.
+
+--In this example, argument is being passed by reference and the reference is being overwritten inside the called function.
+def pass_by_val( mylist ):
+   "This changes a passed list into this function"
+   mylist = [4,8,12,16]; # This would assign new reference in mylist
+   print ("Values inside the function: ", mylist)
+   return
+
+# Now you can call changeme function
+mylist = [10,20,30];
+pass_by_val( mylist );
+print ("Values outside the function: ", mylist)
+
+Note:
+The parameter mylist is local to the function changeme. Changing mylist within the function does not affect mylist. The function accomplishes nothing and finally you can see the result produced.
+
+-----------Function Arguments
+
+1) Required arguments
+# Function definition is here
+def printme( str ):
+   print (str)
+   return;
+
+# Below function call throws err as 1 arg needs to be passed
+printme()
+
+2) Keyword Arguments (similar to named notation in Pl/sql)
+eg a) # Function definition is here
+def printme( str ):
+   print (str)
+   return;
+
+# Now you can call printme function
+printme( str = "My string")
+
+eg b)
+# Function definition is here
+def printinfo( name, age ):
+   print ("Name: ", name)
+   print ("Age ", age)
+   return;
+
+# Now you can call printinfo function
+printinfo( age=50, name="miki" )
+
+3) Default Arguement
+# Function definition is here
+def printinfo( name, age = 35 ):
+   print ("Name: ", name)
+   print ("Age ", age)
+   return;
+
+# Now you can call printinfo function
+printinfo( age=50, name="miki" )
+printinfo( name="miki" )
+
+4) Variable-length arguments
+Syntax:
+def functionname([formal_args,] *var_args_tuple ):
+   "function_docstring"
+   function_suite
+   return [expression]
+
+An asterisk (*) is placed before the variable name that holds the values of all nonkeyword variable arguments. This tuple remains empty if no additional arguments are specified during the function call
+def printinfo( arg1, *vartuple ):
+   "This prints a variable passed arguments"
+   print ("Output is: ")
+   print (arg1)
+   for var in vartuple:
+      print (var * 2)
+   return;
+
+# Now you can call printinfo function
+printinfo( 10 )
+printinfo( 70, 60, 50 )
+
+-------------- Anonymous Function
+# Function definition is here
+1) sum = lambda arg1, arg2: arg1 + arg2;
+
+# Now you can call sum as a function
+print ("Value of total : ", sum( 105, 10 ))
+print ("Value of total : ", sum( 20, 20 ))
+
+2) f = lambda x, y : x + y
+f(1,1)
+
+--------------- Return Statement
+#So far, above functions what we have seen did not return any values, below example to show a function returning a value
+def sum( arg1, arg2 ):
+   # Add both the parameters and return them."
+   total = arg1 + arg2
+   print ("Inside the function : ", total)
+   return total;
+
+# Now you can call sum function
+total = sum( 10, 20 );
+print ("Outside the function : ", total )
+
+---------Scope of variable - Global / Local
+total = 0; # This is global variable.
+# Function definition is here
+def sum( arg1, arg2 ):
+   # Add both the parameters and return them."
+   total = arg1 + arg2; # Here total is local variable.
+   print ("Inside the function local total : ", total)
+   return total;
+
+# Now you can call sum function
+sum( 10, 20 );
+print ("Outside the function global total : ", total )
+total = total+20
+total
+sum(10,20)
+total
+---------
+def calcWeeklyWages(totalHours, hourlyWage):
+    '''Return the total weekly wages for a worker working totalHours,
+    with a given regular hourlyWage.  Include overtime for hours over 40.
+    '''
+    if totalHours <= 40:
+        totalWages = hourlyWage*totalHours
+    else:
+        overtime = totalHours - 40
+        totalWages = hourlyWage*40 + (1.5*hourlyWage)*overtime
+    return totalWages
+
+def main():
+    hours = float(input('Enter hours worked: '))
+    wage = float(input('Enter Ruppees paid per hour: '))
+    total = calcWeeklyWages(hours, wage)
+    print('Wages for {hours} hours at Re.{wage:.2f} per hour are Re.{total:.2f}.'
+          .format(**locals()))
+
+main()
+
+--alternate solution
+def calcWeeklyWages(totalHours, hourlyWage):
+    if totalHours <= 40:
+        regularHours = totalHours
+        overtime = 0
+    else:
+        overtime = totalHours - 40
+        regularHours = 40
+        return hourlyWage*regularHours + (1.5*hourlyWage)*overtime
+
+===================Modules Example
+from math import sqrt  
+x = sqrt(20) # no need of qualification 
+x
+from math import cos
+cos(90)
+from math import * #imports all identifiers from the module into current namespace
+
+Namespace and Scoping
+Money = 2000
+def AddMoney():
+   # Uncomment the following line to fix the code:
+#   global Money
+   Money = Money + 1
+
+print (Money)
+AddMoney()
+print (Money)
+
+Above code throws error, uncomment and again exec
+
+globals(), locals(), reload()
+-------
+from Pots import Pots
+from Isdn import Isdn
+from G3 import G3
+
+def G3()
+print ("I'm 3G Phone")
+print ("I'm ISDN Phone")
+
+Steps
+Create all.py files
+create __init__.py and write from command in this file
+place  all .py files parellel to this __init__.py file
+
+open __init__.py - this will create .pyc file after created the <__pycache__> folder
+IDLE:
+import sys 
+sys.path.append(r'C:\Users\karamana\AppData\Local\Programs\Python')
+
+import G3
+import Vodofone
+import ISDN
+
+G3()
+Vodofone()
+ISDN()

@@ -1,0 +1,131 @@
+var mongoose = require('mongoose');
+var request = require('request');
+var urls = require('./urls');
+// const fs=require('fs');
+
+// let Grid=require('gridfs-stream');
+// let conn=mongoose.connection;
+// Grid.mongo=mongoose.mongo;
+// let gfs;
+
+module.exports = {
+
+    save: (req, res) => {
+        //var ses = req.session;
+        console.log(req.query.modelName);
+        var trainedModels = require('../models/trainedModel.js');
+        var TrainedModel = mongoose.model('trainedmodels', trainedModels);
+        var modelName = req.query.modelName;
+        TrainedModel.findOne({ name: modelName }, (err, docs) => {
+            if (err) {
+                //console.log(docs);
+                info = {
+                    status: false,
+                    msg: err.data
+                }
+                res.send(info);
+                res.end();
+
+            } else {
+
+                if (docs != null) {
+                    info = {
+                        status: false,
+                        msg: "Model name already exist, Try with another name!!"
+                    }
+                    res.send(info);
+                    res.end();
+                } else {
+                    request({
+                        url: urls.url+'/save?modelName=' + req.query.modelName+ '&userId=' + req.query.userId,
+                        method: 'GET'
+                    }, function (error, response, body) {
+                        if (error) {
+                            info = {
+                                status: false
+                            }
+                            console.log(error);
+                            res.send(info);
+                            res.end();
+
+                        } else {
+
+                            if (response.statusCode === 200) {
+
+
+                                console.log(body);
+
+                                var trainedModel = new TrainedModel({
+                                    name: modelName,
+                                    totalNumberOfRows: req.body.totalNumberOfRows,
+                                    numberOfRowsForTraining: req.body.numberOfRowsForTraining,
+                                    numberOfRowsForTesting: req.body.numberOfRowsForTesting,
+                                    numberOfAttributesUsed: req.body.numberOfAttributesUsed,
+                                    totalNumberOfAttributes: req.body.totalNumberOfAttributes,
+                                    columnData: req.body.columnData,
+                                    accuracy: req.body.accuracy,
+                                    classifier: req.body.classifier,
+                                    classification: req.body.classification,
+                                    predictData: JSON.stringify(req.body.predictData),
+                                    precision: req.body.Precision
+                                });
+
+                                trainedModel.save(function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                        info = {
+                                            status: false,
+                                            msg: "failed to save model "
+                                        }
+                                    }
+                                    else {
+
+                                        info = {
+                                            status: true,
+                                            msg: "Successfully saved the model"
+                                        }
+                                    }
+                                    res.send(info);
+                                    res.end();
+                                });
+
+                            } else {
+                                info = {
+                                    status: false,
+                                    msg: body
+                                }
+
+                                res.send(info);
+                                res.end();
+                            }
+
+                            console.log(body);
+                        }
+
+                    });
+                }
+
+            };
+
+        });
+
+    }
+}
+        // gfs=Grid(conn.db);
+        // let part=req.files.file;
+        // let writestream=gfs.createWriteStream({
+        //     filename:'img_'+part.name,
+        //     mode:'w',
+        //     content_type:part.mimetype
+        // })
+      //    // var AutoIncrement = require("mongoose-sequence");
+      //  // createClients.plugin(AutoIncrement);
+        // writestream.on('close',function(file){
+        //     return res.status(200).send({
+        //         message:'Success',
+        //         file: file
+        //     })
+        // })
+
+        // writestream.write(part.data);
+        // writestream.end();

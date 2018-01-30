@@ -1,0 +1,4 @@
+1.  To know the working dir : getwd()
+2.  To Choose new working dir : File Menu->Change dir->select the dir you want
+	To confirm the working dir :	getwd()
+3. copy a csv file into the working directory, read using R 						   : read.csv("mydata.csv")

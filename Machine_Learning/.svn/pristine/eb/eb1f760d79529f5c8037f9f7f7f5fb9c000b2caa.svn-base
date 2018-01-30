@@ -1,0 +1,35 @@
+var mongoose = require('mongoose');
+var encode = require('hashcode').hashCode;
+
+module.exports = {
+
+    check: (req, res) => {
+       // ses = req.session;
+        var users = require('../models/user.js');
+        var User = mongoose.model('users', users);
+        var authorization = req.headers['authorization'];
+        console.log(authorization);
+        var hash = encode().value(authorization);
+        var info = {};
+        User.findOne({ secret: hash, status: 'active' }, (err, doc) => {
+            if (err) {
+                //console.log(docs);
+                res.send(err);
+                res.end();
+
+            } else {
+
+                if (doc != null) {
+
+                    res.send("access granted");
+                    res.end();
+                } else {
+                    res.sendStatus(401);
+                }
+
+            };
+
+        });
+
+    }
+}

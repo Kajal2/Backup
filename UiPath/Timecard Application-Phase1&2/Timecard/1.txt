@@ -1,0 +1,19 @@
+grvTimeCard_ctl03_txtProject
+ function GetRowIndex(object)
+        {
+        if (typeof object == 'object')
+	        var objName = object.id;
+	    else
+	        var objName = object;
+    
+            var RowIndex = objName.substring(15,objName.length-11)-1;
+            document.getElementById(ControlID+"hdnRowIndex").value=RowIndex;
+            document.getElementById(ControlID+"hdnProject").value=object.value;
+        }
+
+
+ document.getElementById('grvTimeCard_ctl02_txtTotal').value= 40;
+document.getElementById('grvTimeCard_ctl03_txtTotal').value=5
+
+document.getElementById('grvTimeCard_ctl03_ddlShift').value=5
+document.getElementById('grvTimeCard_ctl02_ddlTask').value=5

@@ -1,0 +1,170 @@
+<div class="container" ng-controller="FileUploadCtrl">
+  
+    <div ng-show="loader" class="loader"></div>
+
+    <div class="row" ng-class="{blur: loader}">
+            <span style="font-size: 20px;" data-toggle="tooltip" title="help" ng-hide="blurId" ng-click="blurDiv()" class="glyphicon  glyphicon-question-sign pull-right" ></span> 
+            <span style="font-size: 20px;" ng-show="blurId" data-toggle="tooltip" title="close" ng-click="unblurDiv()" class="glyphicon  glyphicon glyphicon-remove pull-right" ></span> 
+    <div class="helpContent" ng-show="blurId">
+            <p><b style="color: darkblue">
+                  Step 1: Upload a CSV file here by either drag and drop or by choosing a file from your system
+                 <b> </p>  
+
+    </div>
+
+
+       
+            <div class="col-lg-12" ng-class="{'blur': blurId === true}">
+            
+              
+                 
+                <!--   <div class="col-lg-2"></div> -->
+                <!--      <div class="col-lg-2"></div> -->
+                <div style="height: 250px" class="col-lg-8 well">
+                        <div style="background-color:	#25293c ;">
+                                <span style="font-size: 15px;color: white;"><b> Upload a CSV File Here</b> </span>
+                                
+                            </div>
+                   
+                  
+
+                  
+
+
+
+                
+                
+                    <!-- Drop Box -->
+
+                    <div style="width: 100%; height: 90%" id="dropbox" style="display: inline-block" class="dropbox" ng-class="dropClass">
+                        <div ng-hide="files.length">
+                       
+
+                             <div class="upload">
+                                <input type="file" name="file-upload" id="file-upload" style="display: inline-block" class="inputfile" ng-model-instant id="fileToUpload"
+                                    onchange="angular.element(this).scope().setFiles(this)" />
+                            </div>
+                            <label for="file-upload" class="custom-file-upload text-center" style="font-size: 20px; margin-top:10%">
+                                <i class="fa fa-cloud-upload"></i> Select a file for upload
+                            </label><b style="font-size: 20px"> or drag it here </b>
+                            <span style="font-size: 15px; color:rgba(77,77,77,0.5)">{{dropText}}</span>
+                            <!--<span style="font-size: 45px;" class="glyphicon glyphicon-save" ></span>-->
+                           
+
+                           
+
+                            
+
+                        </div>
+
+                        <div ng-show="files.length">
+                        
+                            <div ng-repeat="file in files.slice(0)">
+                                <span style="font-size: 20px;">{{file.webkitRelativePath || file.name}}
+                                        &nbsp;&nbsp;<i class="fa fa-trash-o" ng-click="removeFile()" aria-hidden="true" style="font-size: 25px"> </i>
+                                       
+                            <div>
+                                <br>
+                                    <i class="fa fa-file-text-o" style="font-size:80px;"></i>
+                               
+                               <!-- <input type="button" class="button" value="upload" ng-click="uploadFile()"/>-->
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- End Frop Box -->
+
+                </div>
+            
+                <div  class="col-lg-4">
+                    <div class="row">
+                       
+                        <div style="height: 250px" class="well">
+                                <div style="background-color:	#25293c ;">
+                                        <span style="font-size: 15px;color:white;"><b> DataSet Segregation</b> </span>
+                                        
+                                    </div>
+                            
+                              
+                           
+                     
+                            <table class="table" style="height:180px;padding:3px;  ">
+                                <tr style="margin-top: 10px">
+                                    <td ><b>
+                                        <span style="color: #0b5494;">Training  % </span></b>
+                                        <span style="color: #0b5494"><input type="number" class="form-control"   ng-model="sliderFilterData.training" ng-change="changeTraining(sliderFilterData.training)"></span>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td style="padding-top: 5px"><b>
+                                        <span style="color: #0b5494;">Testing  % </span>
+                                    </b> 
+                                 
+                                        <span style="color: #0b5494"><input class="form-control" ng-model="sliderFilterData.testing" type="number"   ng-change="changeTesting(sliderFilterData.testing)"></span>
+                                    </td>
+                                </tr>
+
+                                <!--<tr>
+                                    <td><b>
+                                        <span style="color: #0b5494;">Hold  % </span></b>
+                               
+                                        <span style="color: #0b5494"><input ng-model="sliderFilterData.hold" class="form-control" ng-change="changeHold(sliderFilterData.hold)" type="number"></span>
+                                    </td>
+                                </tr>-->
+
+                            </table>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div style="background-color:	#25293c">
+                <span style="font-size: 15px;color:white;"><b>Move the slider to define Dataset segregation percentage</b> </span>
+            </div>    
+<div  class="well" ng-class="{'blur': blurId === true}">
+    
+       
+       
+    <rzslider data-toggle="tooltip" title="Training data followed by testing data" rz-slider-model="slider.minValue"
+          rz-slider-high="slider.maxValue"
+          rz-slider-options="slider.options"  ></rzslider>
+</div>
+
+<!--    </div>
+    <div ng-hide="files.length"> 
+    <rzslider rz-slider-model="RangeSlider.minValue" rz-slider-high="RangeSlider.maxValue" rz-slider-options="RangeSlider.options"></rzslider>
+    </div> 
+    <div ng-show="files.length"> 
+    <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
+    </div>-->
+
+
+  
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            
+            <input type="button"  ng-disabled="!files.length" ng-click="goNext()" value="NEXT" class="btn btn-primary pull-right " />
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>

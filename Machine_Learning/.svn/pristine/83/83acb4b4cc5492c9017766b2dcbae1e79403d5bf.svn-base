@@ -1,0 +1,24 @@
+var express = require("express");
+var router = express.Router();
+
+router.get("/", (req, res) => {
+    res.render("home.html");
+})
+
+var registerUserService = require('../services/registerUserService');
+
+var checkService = require('../services/checkService');
+
+var getModelsService = require('../services/getModelsService');
+
+var getModelJSONService = require('../services/getModelJSONService');
+
+router.post("/registerUser", registerUserService.registerUser);
+
+router.get("/check", checkService.check);
+
+router.get("/getModels", getModelsService.getModels);
+
+router.get("/getModelJSON", getModelJSONService.getModelJSON);
+
+module.exports = router;

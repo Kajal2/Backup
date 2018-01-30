@@ -1,0 +1,150 @@
+Classes & Objets
+============
+
+Class objects support two kinds of operations: attribute references and instantiation.
+
+class MyClass:
+    """A simple example class"""
+    i = 12345
+
+    def f(self):
+        return 'hello world'
+
+MyClass.i
+MyClass.f('test')
+#MyClass.i and MyClass.f are valid attribute references, returning an integer and a function object, respectively.
+Class instantiation uses function notation. Just pretend that the class object is a parameterless function that returns a new instance of the class. For example (assuming the above class):
+x = MyClass()  # creates a new instance of the class and assigns this object to the local variable x.
+
+
+class Complex:
+     def __init__(self, realpart, imagpart):
+         self.r = realpart
+         self.i = imagpart
+
+x = Complex(3.0, -4.5)
+---self example
+self:
+class myClass:
+    def myFunc(self, name):
+        self.name = name
+
+---Instance objects
+The only operations understood by instance objects are attribute references. There are two kinds of valid attribute names, data attributes and methods.
+x.counter = 1
+
+while x.counter < 10:
+    x.counter = x.counter * 2
+    print(x.counter)
+
+del x.counter
+
+------
+x = MyClass()
+xf = x.f
+while True:
+    print(xf())
+
+----Class and Instance variables
+class Dog:
+
+    kind = 'canine'         # class variable shared by all instances
+
+    def __init__(self, name):
+        self.name = name    # instance variable unique to each instance
+
+d = Dog('Fido')
+e = Dog('Buddy')
+d.kind   # shared by all dogs
+e.kind # shared by all dogs
+d.name   # unique to d
+e.name   # unique to e
+
+e.kind = 'Jam'
+d.kind
+e.kind
+
+it gets changed
+
+
+----shared data can have possibly surprising effects with involving mutable objects such as lists and dictionaries. For example, the tricks list in the following code should not be used as a class variable because just a single list would be shared by all Dog instances
+class Dog:
+    tricks = []             # mistaken use of a class variable
+
+    def __init__(self, name):
+        self.name = name
+
+    def add_trick(self, trick):
+        self.tricks.append(trick)
+>>> d = Dog('Fido')
+>>> e = Dog('Buddy')
+>>> d.add_trick('roll over')
+>>> e.add_trick('play dead')
+>>> d.tricks                # unexpectedly shared by all dogs
+
+====Correct design of the class should use an instance variable instead:
+class Dog:
+
+    def __init__(self, name):
+        self.name = name
+        self.tricks = []    # creates a new empty list for each dog
+
+    def add_trick(self, trick):
+        self.tricks.append(trick)
+
+>>> d = Dog('Fido')
+>>> e = Dog('Buddy')
+>>> d.add_trick('roll over')
+>>> e.add_trick('play dead')
+>>> d.tricks
+=======
+Any function object that is a class attribute defines a method for instances of that class. It is not necessary that the function definition is textually enclosed in the class definition: assigning a function object to a local variable in the class is also ok. For example:
+
+# Function defined outside the class
+def f1(self, x, y):
+    return min(x, x+y)
+
+class C:
+    f = f1
+
+    def g(self):
+        return 'hello world'
+
+    h = g
+Now f, g and h are all attributes of class C that refer to function objects, and consequently they are all methods of instances of C — h being exactly equivalent to g. Note that this practice usually only serves to confuse the reader of a program.
+C.f(3,4,5)
+C.g('test')
+C.h('test')
+=========
+Methods may call other methods by using method attributes of the self argument:
+class Bag:
+    def __init__(self):
+        self.data = []
+
+    def add(self, x):
+        self.data.append(x)
+
+    def addtwice(self, x):
+        self.add(x)
+        self.add(x)
+
+----Private variables
+class Mapping:
+    def __init__(self, iterable):
+        self.items_list = []
+        self.__update(iterable)
+
+    def update(self, iterable):
+        for item in iterable:
+            self.items_list.append(item)
+
+    __update = update   # private copy of original update() method
+
+class MappingSubclass(Mapping):
+
+    def update(self, keys, values):
+        # provides new signature for update()
+        # but does not break __init__()
+        for item in zip(keys, values):
+            self.items_list.append(item)
+--------

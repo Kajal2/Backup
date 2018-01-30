@@ -1,0 +1,70 @@
+{
+            "name": "FirstModel",
+            "totalNumberOfRows": 988,
+            "numberOfRowsForTraining": 544,
+            "numberOfRowsForTesting": 322,
+            "numberOfAttributesUsed": 4,
+            "totalNumberOfAttributes": 6,
+            "predictData": "{'Sepalwidth':3.5, 'Petallength':1.4, 'Petalwidth':0.3}",
+            "accuracy": "97.5",
+            "classifier": "KNN_Classifier",
+            "classification": [0.0, 1.0, 2.0],
+            "precision": [100, 80, 100],
+            "columnData": ["Sepal width", "Petal length", "Petal width"]
+        }
+        {
+            "name": "SecondModel",
+            "totalNumberOfRows": 988,
+            "numberOfRowsForTraining": 544,
+            "numberOfRowsForTesting": 322,
+            "numberOfAttributesUsed": 4,
+            "totalNumberOfAttributes": 6,
+            "predictData": "{'Sepalwidth':3.5, 'Petallength':1.4, 'Petalwidth':0.3}",
+            "accuracy": "97.5",
+            "classifier": "KNN_Classifier",
+            "classification": [0.0, 1.0, 2.0],
+            "precision": [100, 80, 100],
+            "columnData": ["Sepal width", "Petal length", "Petal width"]
+        }
+        {
+            "name": "ThirdModel",
+            "totalNumberOfRows": 988,
+            "numberOfRowsForTraining": 544,
+            "numberOfRowsForTesting": 322,
+            "numberOfAttributesUsed": 4,
+            "totalNumberOfAttributes": 6,
+            "predictData": "{'Sepal width':3.5, 'Petal length':1.4, 'Petal width':0.3}",
+            "accuracy": "97.5",
+            "classifier": "KNN_Classifier",
+            "classification": [0.0, 1.0, 2.0],
+            "precision": [100, 80, 100],
+            "columnData": ["Sepal width", "Petal length", "Petal width"]
+        }
+        {
+            "name": "FourthModel",
+            "totalNumberOfRows": 988,
+            "numberOfRowsForTraining": 544,
+            "numberOfRowsForTesting": 322,
+            "numberOfAttributesUsed": 4,
+            "totalNumberOfAttributes": 6,
+            "predictData": "{'Sepal width':3.5, 'Petal length':1.4, 'Petal width':0.3}",
+            "accuracy": "97.5",
+            "classifier": "KNN_Classifier",
+            "classification": [0.0, 1.0, 2.0],
+            "precision": [100, 80, 100],
+            "columnData": ["Sepal width", "Petal length", "Petal width"]
+        }
+{
+            "name": "FifthModel",
+            "totalNumberOfRows": 988,
+            "numberOfRowsForTraining": 544,
+            "numberOfRowsForTesting": 322,
+            "numberOfAttributesUsed": 4,
+            "totalNumberOfAttributes": 6,
+            "predictData": "{'Sepal width':3.5, 'Petal length':1.4, 'Petal width':0.3}",
+            "accuracy": "97.5",
+            "classifier": "KNN_Classifier",
+            "classification": [0.0, 1.0, 2.0],
+            "precision": [100, 80, 100],
+            "columnData": ["Sepal width", "Petal length", "Petal width"]
+        }

@@ -1,0 +1,89 @@
+var request = require('request');
+var mongoose = require('mongoose');
+var encode = require('hashcode').hashCode;
+module.exports = {
+
+    getModelJSON: (req, res) => {
+        //var ses = req.session;
+        console.log(req.body);
+        var info = {};
+        var users = require('../models/user.js');
+        var User = mongoose.model('users', users);
+        var authorization = req.headers['authorization'];
+        console.log(authorization);
+        var hash = encode().value(authorization);
+        var info = {};
+        User.findOne({ secret: hash, status: 'active' }, (err, doc) => {
+            if (err) {
+                //console.log(docs);
+                info = {
+                    status: false,
+                    msg: err
+                }
+                res.send(info);
+                res.end();
+
+            } else {
+
+                if (doc != null) {
+
+                    var trainedModels = require('../models/trainedModel.js');
+                    var TrainedModel = mongoose.model('trainedmodels', trainedModels);
+
+                    TrainedModel.findOne({ name: req.query.modelName }, (err, docs) => {
+                        if (err) {
+                            //console.log(docs);
+                            info = {
+                                status: false,
+                                msg: err
+                            }
+                            console.log(err);
+
+                        } else {
+
+                            var attributes = [];
+                            var sampleJSON = {};
+
+                            var jsonString = {};
+                            jsonString = JSON.stringify(eval('(' + docs.predictData + ')'));
+                            jsonString = JSON.parse(jsonString);
+
+                            for (var key in jsonString) {
+                                if(key==="Result"){
+                                    continue;
+                                }else{
+                                    attributes.push(key);
+                                    sampleJSON[key]=jsonString[key];
+                                }
+                            }
+
+                            info = {
+                                status: true,
+                                attributes: attributes,
+                                sampleJSON:sampleJSON
+                            }
+
+                        }
+
+                        res.send(info);
+                        res.end();
+
+                        //  var predict=JSON.stringify(docs[0].predictData);
+                        //  predict=JSON.parse(predict);
+                        //  console.log(predict);
+
+
+                    });
+
+
+                } else {
+                    res.sendStatus(401);
+                }
+
+            };
+
+        });
+
+
+    }
+}

@@ -1,0 +1,43 @@
+var request = require('request');
+module.exports = {
+
+    getAttributes: (req, res) => {
+        // var ses = req.session;
+        var info = {};
+
+        request({
+            url: 'http://3.209.93.50:1612/dataset/getAttributes',
+            method: 'GET'
+        }, function (error, response, body) {
+            if (error) {
+                info = {
+                    status: false
+                }
+                console.log(error);
+
+            } else {
+                if (response.statusCode === 200) {
+
+                    var jsonString = {};
+                    jsonString = JSON.stringify(eval('(' + body + ')'));
+                    jsonString = JSON.parse(jsonString);
+                    //console.log(jsonString.data);
+                    info = {
+                        status: true,
+                        body: jsonString
+                    }
+                } else {
+                    info = {
+                        status: false,
+                        msg: response.statusMessage
+                    }
+                }
+                //console.log(body);
+            }
+            // ses.name="spandana";
+            res.send(info);
+            res.end();
+        });
+
+    }
+}

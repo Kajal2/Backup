@@ -1,0 +1,81 @@
+var request = require('request');
+var urls = require('./urls');
+module.exports = {
+
+    trainModel: (req, res) => {
+        // var ses = req.session;
+        console.log(req.query.classifier);
+        var info = {};
+        var predictBody = {};
+        var columnData = [];
+        var rowData = [];
+        try {
+            request({
+                url: urls.url+'/dataset/trainModel?classifier=' + req.query.classifier + '&userId=' + req.query.userId,
+                method: 'GET'
+            }, function (error, response, body) {
+                if (error) {
+                    info = {
+                        status: false
+                    }
+                    console.log(error);
+
+                } else {
+                    console.log(response.statusCode);
+                    if (response.statusCode === 200) {
+
+                        //     body.position = ["first", "second", "third"];
+                        //     body.predict = ["3", "5", "6"];
+
+                        // for (var index = 0; index < body.position.length; index++) {
+                        //         predictBody[body.position[index]]=body.predict[index];
+                        //         console.log(body.predict.length)
+                        //     }
+                        //     ses.predictData=predictBody;
+                        console.log(body);
+                        var jsonString = {};
+                        jsonString = JSON.stringify(eval('(' + body + ')'));;
+                        jsonString = JSON.parse(jsonString);
+
+                        //  for(var keys in body){
+                        //      console.log(keys);
+                        //  }
+
+                        console.log(columnData);
+                        rowData = jsonString.rowData;
+                        columnData = jsonString.columnData;
+
+                        for (var index = 0; index < columnData.length; index++) {
+                            predictBody[columnData[index]] = rowData[index];
+                            console.log(rowData.length)
+                        }
+                        jsonString["predictData"] = predictBody;
+                        info = {
+                            status: true,
+                            body: jsonString
+                        }
+                    } else {
+                        info = {
+                            status: false,
+                            msg: body//response.statusMessage
+                        }
+                    }
+                    // ses.trainedModel=body;
+                    console.log(body);
+                }
+
+                res.send(info);
+                res.end();
+            });
+        } catch (err) {
+            info = {
+                status: false,
+                msg: err
+            }
+            res.send(info);
+            res.end();
+        }
+
+
+    }
+}

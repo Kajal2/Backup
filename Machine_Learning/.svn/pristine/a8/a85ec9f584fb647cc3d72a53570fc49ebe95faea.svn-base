@@ -1,0 +1,69 @@
+var fetch = require("node-fetch");
+var multer = require('multer');
+var path = require('path');
+var fs = require('fs');
+var request = require('request');
+
+var ext;
+var uploadedFileName;
+var accJson;
+var predictJson;
+
+
+var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        console.log("inside file");
+        callback(null, './Uploads')
+    },
+    filename: function (req, file, callback) {
+        console.log("fileName " + file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        uploadedFileName = (file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+
+var upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, callback) {
+        var ext = path.extname(file.originalname)
+        console.log(file.originalname);
+        if (ext == '.csv') {
+            console.log("file type " + ext);
+            callback(null, true);
+        } else {
+            return callback('Only CSV file is allowed', null);
+        }
+
+    }
+}).single("uploadedFile");
+
+
+module.exports = {
+
+    upload: (req, res) => {
+        var info = {};
+       // var ses = req.session;
+        console.log("upload ");
+        upload(req, res, function (err) {
+            if (err) {
+                res.json({ status: false, err_desc: err });
+                res.end();
+               
+            }
+            /** Multer gives us file info in req.file object */
+            else if (!req.file) {
+                res.json({ status: false, err_desc: "No file passed" });
+                res.end();
+                // return;
+            } else {
+               
+                console.log(uploadedFileName + " in route1.js");
+                res.send({status: true, filename:uploadedFileName});
+                res.end();
+               
+            }
+        })
+
+
+    }
+}

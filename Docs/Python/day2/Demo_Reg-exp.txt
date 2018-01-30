@@ -1,0 +1,48 @@
+Regular Exceptions
+=============
+import re #The re module provides an interface to the regular expression engine, allowing you to compile REs into objects and then perform matches with them. The re module is simply a C extension module included with Python, just like the socket or zlib modules
+
+Compiling:
+p = re.compile('ab*')
+p
+----
+# [a-z]+. An empty string shouldn’t match at all, since + means ‘one or more repetitions’. match() should return None in this case,
+p = re.compile('[a-z]+')
+
+#usage
+p.match("") 
+print(p.match(""))
+
+m = p.match("karthik")  # storing the result in a variable for later use; shows matchin object
+
+# match object instances also have several methods and attributes; the most important ones are:
+m.group()
+m.start()
+m.end()
+m.span()
+group() returns the substring that was matched by the RE. start() and end() return the starting and ending index of the match. span() returns both start and end indexes in a single tuple. Since the match() method only checks if the RE matches at the start of a string, start() will always be zero. However, the search() method of patterns scans through the string, so the match may not start at zero in that case.
+
+print(p.match('::: message'))
+m = p.search('::: message'); print(m)  
+m.group()
+m.span()
+----
+m = p.match( 'Today is Wednesday' )
+if m:
+    print('Match found: ', m.group())
+else:
+    print('No match')
+
+---Two pattern methods return all of the matches for a pattern. findall() returns a list of matching strings:
+p = re.compile('\d+')
+p.findall('12 drummers drumming, 11 pipers piping, 10 lords a-leaping')
+
+findall() has to create the entire list before it can be returned as the result. The finditer() method returns a sequence of match object instances as an iterator:
+iterator = p.finditer('12 drummers drumming, 11 ... 10 ...')
+iterator  
+for match in iterator:
+    print(match.span())
+
+iterator = p.finditer('123 drummers drumming, 11 ... 10 ...') #check above for loop after this
+iterator = p.finditer('1 drummers drumming, 11 ... 10 ...') #check above for loop after this
+--------
